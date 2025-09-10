@@ -10,6 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 import { TileType } from '@/types';
 import { compressImage, isValidImageFile } from '@/lib/imageUtils';
 import { cn } from '@/lib/utils';
+import { getTileText, getUIText } from '@/lib/translations';
 
 interface AddTileModalProps {
   isOpen: boolean;
@@ -33,7 +34,7 @@ export const AddTileModal: React.FC<AddTileModalProps> = ({
   categoryId,
   categoryName
 }) => {
-  const { addTile } = useStore();
+  const { addTile, preferences } = useStore();
   const { toast } = useToast();
   
   const [label, setLabel] = useState('');
@@ -67,8 +68,8 @@ export const AddTileModal: React.FC<AddTileModalProps> = ({
   const handleImageSelect = async (file: File) => {
     if (!isValidImageFile(file)) {
       toast({
-        title: 'Invalid File',
-        description: 'Please select a valid image file (JPEG, PNG, WebP, max 10MB)',
+        title: getUIText('invalidFile', preferences.language),
+        description: getUIText('selectValidImage', preferences.language),
         variant: 'destructive',
       });
       return;
@@ -93,8 +94,8 @@ export const AddTileModal: React.FC<AddTileModalProps> = ({
       }
     } catch (error) {
       toast({
-        title: 'Image Processing Failed',
-        description: 'Failed to process the image. Please try another file.',
+        title: getUIText('imageProcessingFailed', preferences.language),
+        description: getUIText('imageProcessingError', preferences.language),
         variant: 'destructive',
       });
     } finally {
@@ -124,8 +125,8 @@ export const AddTileModal: React.FC<AddTileModalProps> = ({
     
     if (!label.trim()) {
       toast({
-        title: 'Label Required',
-        description: 'Please enter a label for the tile',
+        title: getUIText('labelRequired', preferences.language),
+        description: getUIText('enterLabel', preferences.language),
         variant: 'destructive',
       });
       return;
@@ -134,8 +135,8 @@ export const AddTileModal: React.FC<AddTileModalProps> = ({
     // Validate at least one translation is provided
     if (!translations.en.trim() && !translations.ru.trim() && !translations.he.trim()) {
       toast({
-        title: 'Translation Required',
-        description: 'Please provide at least one translation',
+        title: getUIText('translationRequired', preferences.language),
+        description: getUIText('provideTranslation', preferences.language),
         variant: 'destructive',
       });
       return;
@@ -156,15 +157,15 @@ export const AddTileModal: React.FC<AddTileModalProps> = ({
       });
 
       toast({
-        title: 'Tile Added!',
-        description: `"${label}" has been added to ${categoryName}`,
+        title: getUIText('tileAdded', preferences.language),
+        description: `"${label}" ${getUIText('tileAddedDescription', preferences.language)} ${categoryName}`,
       });
 
       handleClose();
     } catch (error) {
       toast({
-        title: 'Failed to Add Tile',
-        description: 'There was an error adding the tile. Please try again.',
+        title: getUIText('failedToAdd', preferences.language),
+        description: getUIText('errorAddingTile', preferences.language),
         variant: 'destructive',
       });
     } finally {
@@ -177,9 +178,9 @@ export const AddTileModal: React.FC<AddTileModalProps> = ({
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <span>Add New Tile</span>
+            <span>{getUIText('addTile', preferences.language)}</span>
             <span className="text-sm font-normal text-muted-foreground">
-              to {categoryName}
+              - {categoryName}
             </span>
           </DialogTitle>
         </DialogHeader>
@@ -187,7 +188,7 @@ export const AddTileModal: React.FC<AddTileModalProps> = ({
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Image Upload Area */}
           <div className="space-y-2">
-            <Label>Photo (Optional)</Label>
+            <Label>{getUIText('uploadPhoto', preferences.language)}</Label>
             <div
               className={cn(
                 'border-2 border-dashed rounded-lg p-6 text-center transition-colors',
@@ -227,13 +228,13 @@ export const AddTileModal: React.FC<AddTileModalProps> = ({
                   <ImageIcon className="w-8 h-8 mx-auto text-muted-foreground" />
                   <div className="space-y-2">
                     <p className="text-sm text-muted-foreground">
-                      Drop an image here, or choose file
+                      {getUIText('dragDropImage', preferences.language)}
                     </p>
                     <div className="flex gap-2 justify-center">
                       <Button type="button" variant="outline" size="sm" asChild>
                         <label className="cursor-pointer">
                           <Upload className="w-4 h-4 mr-1" />
-                          Upload
+                          {getUIText('chooseFile', preferences.language)}
                           <input
                             type="file"
                             accept="image/*"
@@ -245,7 +246,7 @@ export const AddTileModal: React.FC<AddTileModalProps> = ({
                       <Button type="button" variant="outline" size="sm" asChild>
                         <label className="cursor-pointer">
                           <Camera className="w-4 h-4 mr-1" />
-                          Camera
+                          {getUIText('takePhoto', preferences.language)}
                           <input
                             type="file"
                             accept="image/*"
@@ -265,13 +266,13 @@ export const AddTileModal: React.FC<AddTileModalProps> = ({
           {/* Label Input */}
           <div className="space-y-2">
             <Label htmlFor="tile-label">
-              Tile Label <span className="text-destructive">*</span>
+              {getUIText('tileLabel', preferences.language)} <span className="text-destructive">*</span>
             </Label>
             <Input
               id="tile-label"
               value={label}
               onChange={(e) => setLabel(e.target.value)}
-              placeholder="Enter the word or phrase..."
+              placeholder={getUIText('tileLabel', preferences.language)}
               className="text-lg"
               maxLength={50}
             />
@@ -338,7 +339,7 @@ export const AddTileModal: React.FC<AddTileModalProps> = ({
 
           {/* Type Selection */}
           <div className="space-y-2">
-            <Label>Word Type</Label>
+            <Label>{getUIText('tileType', preferences.language)}</Label>
             <Select value={tileType} onValueChange={(value: TileType) => setTileType(value)}>
               <SelectTrigger>
                 <SelectValue />
@@ -373,14 +374,14 @@ export const AddTileModal: React.FC<AddTileModalProps> = ({
               className="flex-1"
               disabled={isProcessing}
             >
-              Cancel
+              {getUIText('cancel', preferences.language)}
             </Button>
             <Button 
               type="submit" 
               className="flex-1"
               disabled={isProcessing || !label.trim()}
             >
-              {isProcessing ? 'Adding...' : 'Add Tile'}
+              {isProcessing ? getUIText('adding', preferences.language) : getUIText('addTile', preferences.language)}
             </Button>
           </div>
         </form>

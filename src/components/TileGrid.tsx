@@ -9,7 +9,7 @@ import { Category, Tile as TileType } from '@/types';
 import { cn, debounce } from '@/lib/utils';
 import { useStore } from '@/store/useStore';
 import { useToast } from '@/hooks/use-toast';
-import { getCategoryName, getTextDirection } from '@/lib/translations';
+import { getCategoryName, getTextDirection, getUIText } from '@/lib/translations';
 
 interface TileGridProps {
   category: Category;
@@ -33,10 +33,12 @@ export const TileGrid: React.FC<TileGridProps> = ({
   const handleToggleCaregiverMode = () => {
     toggleCaregiverMode();
     toast({
-      title: preferences.caregiverMode ? "Caregiver Mode Off" : "Caregiver Mode On",
+      title: preferences.caregiverMode 
+        ? getUIText('caregiverModeOff', preferences.language)
+        : getUIText('caregiverModeOn', preferences.language),
       description: preferences.caregiverMode 
-        ? "Editing features are now disabled" 
-        : "You can now add and edit tiles",
+        ? getUIText('editingDisabled', preferences.language)
+        : getUIText('editingEnabled', preferences.language),
       duration: 2000,
     });
   };
@@ -124,7 +126,7 @@ export const TileGrid: React.FC<TileGridProps> = ({
               size="sm"
             >
               <Plus className="w-4 h-4" />
-              <span className="ml-1 hidden sm:inline">Add Tile</span>
+              <span className="ml-1 hidden sm:inline">{getUIText('addTile', preferences.language)}</span>
             </Button>
           )}
           
@@ -132,7 +134,7 @@ export const TileGrid: React.FC<TileGridProps> = ({
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
-              placeholder="Search tiles..."
+              placeholder={getUIText('searchTiles', preferences.language)}
               value={searchQuery}
               onChange={handleSearchChange}
               className="pl-10 w-40 sm:w-48"
@@ -152,7 +154,7 @@ export const TileGrid: React.FC<TileGridProps> = ({
           >
             <Settings className="w-5 h-5" />
             {preferences.caregiverMode && (
-              <span className="ml-2 text-xs font-medium">ON</span>
+              <span className="ml-2 text-xs font-medium">{getUIText('on', preferences.language)}</span>
             )}
           </Button>
         </div>
@@ -181,27 +183,27 @@ export const TileGrid: React.FC<TileGridProps> = ({
               <>
                 <div className="text-4xl mb-4">🔍</div>
                 <h3 className="text-lg font-semibold text-foreground mb-2">
-                  No tiles found
+                  {getUIText('noTilesFound', preferences.language)}
                 </h3>
                 <p className="text-muted-foreground">
-                  Try adjusting your search term
+                  {getUIText('tryAdjustingSearch', preferences.language)}
                 </p>
                 <Button
                   variant="outline"
                   onClick={() => setSearchQuery('')}
                   className="mt-4"
                 >
-                  Clear search
+                  {getUIText('clearSearch', preferences.language)}
                 </Button>
               </>
             ) : (
               <>
                 <div className="text-4xl mb-4">📝</div>
                 <h3 className="text-lg font-semibold text-foreground mb-2">
-                  No tiles in this category
+                  {getUIText('noTilesInCategory', preferences.language)}
                 </h3>
                 <p className="text-muted-foreground mb-4">
-                  Tiles will appear here once they're added.
+                  {getUIText('tilesWillAppear', preferences.language)}
                 </p>
                 {preferences.caregiverMode ? (
                   <Button 
@@ -210,11 +212,11 @@ export const TileGrid: React.FC<TileGridProps> = ({
                     className="btn-touch"
                   >
                     <Plus className="w-4 h-4 mr-2" />
-                    Add First Tile
+                    {getUIText('addFirstTile', preferences.language)}
                   </Button>
                 ) : (
                   <p className="text-xs text-muted-foreground mt-2">
-                    Enable caregiver mode to add tiles
+                    {getUIText('enableCaregiverMode', preferences.language)}
                   </p>
                 )}
               </>

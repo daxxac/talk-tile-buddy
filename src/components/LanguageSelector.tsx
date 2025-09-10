@@ -10,7 +10,7 @@ import {
 import { useStore } from '@/store/useStore';
 import { useToast } from '@/hooks/use-toast';
 import { Language } from '@/types';
-import { LANGUAGE_NAMES, LANGUAGE_FLAGS } from '@/lib/translations';
+import { LANGUAGE_NAMES, LANGUAGE_FLAGS, getUIText } from '@/lib/translations';
 
 export const LanguageSelector: React.FC = () => {
   const { preferences, updatePreferences } = useStore();
@@ -19,8 +19,8 @@ export const LanguageSelector: React.FC = () => {
   const handleLanguageChange = (language: Language) => {
     updatePreferences({ language });
     toast({
-      title: 'Language Changed',
-      description: `Interface changed to ${LANGUAGE_NAMES[language]}`,
+      title: getUIText('languageChanged', language),
+      description: `${getUIText('interfaceChangedTo', language)} ${LANGUAGE_NAMES[language]}`,
       duration: 2000,
     });
   };

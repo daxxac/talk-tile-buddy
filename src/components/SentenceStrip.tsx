@@ -5,7 +5,7 @@ import { SentenceItem } from '@/types';
 import { cn } from '@/lib/utils';
 import { speak, stopSpeaking } from '@/lib/tts';
 import { useStore } from '@/store/useStore';
-import { getTileText } from '@/lib/translations';
+import { getTileText, getUIText } from '@/lib/translations';
 
 interface SentenceStripProps {
   className?: string;
@@ -95,7 +95,7 @@ export const SentenceStrip: React.FC<SentenceStripProps> = ({ className }) => {
               <Play className="w-4 h-4" />
             )}
             <span className="ml-2">
-              {isSpeaking ? 'Stop' : 'Play'}
+              {isSpeaking ? getUIText('stop', preferences.language) : getUIText('play', preferences.language)}
             </span>
           </Button>
         </div>
