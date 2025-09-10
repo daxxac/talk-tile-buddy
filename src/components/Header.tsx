@@ -1,7 +1,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import logo from '@/assets/logo.png';
-import signature from '@/assets/daxxac-signature.png';
+import signature from '@/assets/daxxac-signature.webp';
 
 interface HeaderProps {
   className?: string;
