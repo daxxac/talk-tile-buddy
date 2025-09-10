@@ -19,7 +19,7 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
           alt="TalkTileBuddy Logo" 
           className="w-8 h-8 object-contain"
         />
-        <div className="flex items-baseline gap-2">
+        <div className="flex items-end gap-2">
           <h1 className="text-xl font-comfortaa font-semibold text-primary">
             TalkTileBuddy
           </h1>
