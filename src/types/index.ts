@@ -10,6 +10,12 @@ export interface Category {
   icon?: string;
   order: number;
   color?: string;
+  // Multilingual support
+  nameTranslations: {
+    en: string;
+    ru: string;
+    he: string;
+  };
 }
 
 export interface Tile {
@@ -22,6 +28,17 @@ export interface Tile {
   ttsOverride?: string;
   order: number;
   isFavorite?: boolean;
+  // Multilingual support
+  translations: {
+    en: string;
+    ru: string;
+    he: string;
+  };
+  variantTranslations?: {
+    en?: string[];
+    ru?: string[];
+    he?: string[];
+  };
 }
 
 export interface Preference {

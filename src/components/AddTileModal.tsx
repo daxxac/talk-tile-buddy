@@ -42,6 +42,13 @@ export const AddTileModal: React.FC<AddTileModalProps> = ({
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [dragActive, setDragActive] = useState(false);
+  
+  // Translation fields
+  const [translations, setTranslations] = useState({
+    en: '',
+    ru: '',
+    he: ''
+  });
 
   const resetForm = () => {
     setLabel('');
@@ -49,6 +56,7 @@ export const AddTileModal: React.FC<AddTileModalProps> = ({
     setImageFile(null);
     setImagePreview(null);
     setIsProcessing(false);
+    setTranslations({ en: '', ru: '', he: '' });
   };
 
   const handleClose = () => {
@@ -77,6 +85,11 @@ export const AddTileModal: React.FC<AddTileModalProps> = ({
         const filename = file.name.split('.')[0];
         const cleanName = filename.replace(/[_-]/g, ' ').toLowerCase();
         setLabel(cleanName);
+        // Set as default English translation
+        setTranslations(prev => ({
+          ...prev,
+          en: cleanName
+        }));
       }
     } catch (error) {
       toast({
@@ -118,6 +131,16 @@ export const AddTileModal: React.FC<AddTileModalProps> = ({
       return;
     }
 
+    // Validate at least one translation is provided
+    if (!translations.en.trim() && !translations.ru.trim() && !translations.he.trim()) {
+      toast({
+        title: 'Translation Required',
+        description: 'Please provide at least one translation',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     setIsProcessing(true);
     try {
       addTile({
@@ -125,6 +148,11 @@ export const AddTileModal: React.FC<AddTileModalProps> = ({
         categoryId,
         type: tileType,
         imageUri: imagePreview || undefined,
+        translations: {
+          en: translations.en.trim() || label.trim(),
+          ru: translations.ru.trim() || label.trim(),
+          he: translations.he.trim() || label.trim(),
+        }
       });
 
       toast({
@@ -247,6 +275,65 @@ export const AddTileModal: React.FC<AddTileModalProps> = ({
               className="text-lg"
               maxLength={50}
             />
+          </div>
+
+          {/* Translations */}
+          <div className="space-y-3">
+            <Label>Translations</Label>
+            <div className="grid gap-3">
+              <div className="space-y-1">
+                <Label htmlFor="translation-en" className="text-sm font-medium">
+                  🇺🇸 English
+                </Label>
+                <Input
+                  id="translation-en"
+                  value={translations.en}
+                  onChange={(e) => setTranslations(prev => ({
+                    ...prev,
+                    en: e.target.value
+                  }))}
+                  placeholder="English translation..."
+                  maxLength={50}
+                />
+              </div>
+              
+              <div className="space-y-1">
+                <Label htmlFor="translation-ru" className="text-sm font-medium">
+                  🇷🇺 Русский (Russian)
+                </Label>
+                <Input
+                  id="translation-ru"
+                  value={translations.ru}
+                  onChange={(e) => setTranslations(prev => ({
+                    ...prev,
+                    ru: e.target.value
+                  }))}
+                  placeholder="Русский перевод..."
+                  maxLength={50}
+                  dir="ltr"
+                />
+              </div>
+              
+              <div className="space-y-1">
+                <Label htmlFor="translation-he" className="text-sm font-medium">
+                  🇮🇱 עברית (Hebrew)
+                </Label>
+                <Input
+                  id="translation-he"
+                  value={translations.he}
+                  onChange={(e) => setTranslations(prev => ({
+                    ...prev,
+                    he: e.target.value
+                  }))}
+                  placeholder="תרגום עברי..."
+                  maxLength={50}
+                  dir="rtl"
+                />
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Provide translations in the languages you need. Missing translations will use the main label.
+            </p>
           </div>
 
           {/* Type Selection */}

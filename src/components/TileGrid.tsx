@@ -4,10 +4,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Tile } from '@/components/Tile';
 import { AddTileModal } from '@/components/AddTileModal';
+import { LanguageSelector } from '@/components/LanguageSelector';
 import { Category, Tile as TileType } from '@/types';
 import { cn, debounce } from '@/lib/utils';
 import { useStore } from '@/store/useStore';
 import { useToast } from '@/hooks/use-toast';
+import { getCategoryName, getTextDirection } from '@/lib/translations';
 
 interface TileGridProps {
   category: Category;
@@ -101,13 +103,19 @@ export const TileGrid: React.FC<TileGridProps> = ({
           
           <div className="flex items-center gap-2">
             <span className="text-2xl">{category.icon || '📁'}</span>
-            <h1 className="text-xl font-bold text-foreground">
-              {category.name}
+            <h1 
+              className="text-xl font-bold text-foreground"
+              dir={getTextDirection(preferences.language)}
+            >
+              {getCategoryName(category, preferences.language)}
             </h1>
           </div>
         </div>
         
         <div className="flex items-center gap-2">
+          {/* Language Selector */}
+          <LanguageSelector />
+          
           {/* Add Tile Button - Only visible in caregiver mode */}
           {preferences.caregiverMode && (
             <Button
@@ -216,11 +224,11 @@ export const TileGrid: React.FC<TileGridProps> = ({
       </div>
 
       {/* Add Tile Modal */}
-      <AddTileModal
+        <AddTileModal
         isOpen={showAddModal}
         onClose={() => setShowAddModal(false)}
         categoryId={category.id}
-        categoryName={category.name}
+        categoryName={getCategoryName(category, preferences.language)}
       />
     </div>
   );

@@ -8,56 +8,96 @@ export const seedData = {
       name: 'Core Words',
       icon: '⭐',
       order: 0,
-      color: 'core'
+      color: 'core',
+      nameTranslations: {
+        en: 'Core Words',
+        ru: 'Главные слова',
+        he: 'מילים עיקריות'
+      }
     },
     {
       id: 'people',
       name: 'People',
       icon: '👥',
       order: 1,
-      color: 'noun'
+      color: 'noun',
+      nameTranslations: {
+        en: 'People',
+        ru: 'Люди',
+        he: 'אנשים'
+      }
     },
     {
       id: 'actions',
       name: 'Actions',
       icon: '🏃',
       order: 2,
-      color: 'verb'
+      color: 'verb',
+      nameTranslations: {
+        en: 'Actions',
+        ru: 'Действия',
+        he: 'פעולות'
+      }
     },
     {
       id: 'food',
       name: 'Food & Drink',
       icon: '🍎',
       order: 3,
-      color: 'noun'
+      color: 'noun',
+      nameTranslations: {
+        en: 'Food & Drink',
+        ru: 'Еда и напитки',
+        he: 'אוכל ושתייה'
+      }
     },
     {
       id: 'feelings',
       name: 'Feelings',
       icon: '😊',
       order: 4,
-      color: 'adjective'
+      color: 'adjective',
+      nameTranslations: {
+        en: 'Feelings',
+        ru: 'Чувства',
+        he: 'רגשות'
+      }
     },
     {
       id: 'places',
       name: 'Places',
       icon: '🏠',
       order: 5,
-      color: 'noun'
+      color: 'noun',
+      nameTranslations: {
+        en: 'Places',
+        ru: 'Места',
+        he: 'מקומות'
+      }
     },
     {
       id: 'time',
       name: 'Time',
       icon: '⏰',
       order: 6,
-      color: 'noun'
+      color: 'noun',
+      nameTranslations: {
+        en: 'Time',
+        ru: 'Время',
+        he: 'זמן'
+      }
     },
     {
       id: 'descriptors',
       name: 'Descriptors',
       icon: '✨',
       order: 7,
-      color: 'adjective'
+      color: 'adjective',
+      nameTranslations: {
+        en: 'Descriptors',
+        ru: 'Описания',
+        he: 'תיאורים'
+      }
     }
   ] as Category[],
 
@@ -70,7 +110,12 @@ export const seedData = {
       type: 'pronoun',
       order: 0,
       variants: ['me', 'myself'],
-      imageUri: '/src/assets/i-icon.png'
+      imageUri: '/src/assets/i-icon.png',
+      translations: {
+        en: 'I',
+        ru: 'я',
+        he: 'אני'
+      }
     },
     {
       id: 'tile-you',
@@ -78,7 +123,12 @@ export const seedData = {
       categoryId: 'core-words',
       type: 'pronoun',
       order: 1,
-      imageUri: '/src/assets/you-icon.png'
+      imageUri: '/src/assets/you-icon.png',
+      translations: {
+        en: 'you',
+        ru: 'ты',
+        he: 'אתה'
+      }
     },
     {
       id: 'tile-want',
@@ -87,7 +137,12 @@ export const seedData = {
       type: 'verb',
       order: 2,
       variants: ['want', "don't want", 'need'],
-      imageUri: '/src/assets/want-icon.png'
+      imageUri: '/src/assets/want-icon.png',
+      translations: {
+        en: 'want',
+        ru: 'хочу',
+        he: 'רוצה'
+      }
     },
     {
       id: 'tile-have',
@@ -96,7 +151,12 @@ export const seedData = {
       type: 'verb',
       order: 3,
       variants: ['have', "don't have", 'got'],
-      imageUri: '/src/assets/have-icon.png'
+      imageUri: '/src/assets/have-icon.png',
+      translations: {
+        en: 'have',
+        ru: 'есть',
+        he: 'יש'
+      }
     },
     {
       id: 'tile-go',
@@ -105,7 +165,12 @@ export const seedData = {
       type: 'verb',
       order: 4,
       variants: ['go', 'come', 'leave'],
-      imageUri: '/src/assets/go-icon.png'
+      imageUri: '/src/assets/go-icon.png',
+      translations: {
+        en: 'go',
+        ru: 'идти',
+        he: 'ללכת'
+      }
     },
     {
       id: 'tile-more',
@@ -113,7 +178,12 @@ export const seedData = {
       categoryId: 'core-words',
       type: 'core',
       order: 5,
-      imageUri: '/src/assets/more-icon.png'
+      imageUri: '/src/assets/more-icon.png',
+      translations: {
+        en: 'more',
+        ru: 'ещё',
+        he: 'עוד'
+      }
     },
     {
       id: 'tile-stop',
@@ -122,7 +192,12 @@ export const seedData = {
       type: 'core',
       order: 6,
       variants: ['stop', 'no more', 'finished'],
-      imageUri: '/src/assets/stop-icon.png'
+      imageUri: '/src/assets/stop-icon.png',
+      translations: {
+        en: 'stop',
+        ru: 'стоп',
+        he: 'עצור'
+      }
     },
     {
       id: 'tile-help',
@@ -131,7 +206,12 @@ export const seedData = {
       type: 'core',
       order: 7,
       variants: ['help', 'help me', 'please help'],
-      imageUri: '/src/assets/help-icon.png'
+      imageUri: '/src/assets/help-icon.png',
+      translations: {
+        en: 'help',
+        ru: 'помощь',
+        he: 'עזרה'
+      }
     },
     {
       id: 'tile-yes',
@@ -139,7 +219,12 @@ export const seedData = {
       categoryId: 'core-words',
       type: 'core',
       order: 8,
-      imageUri: '/src/assets/yes-icon.png'
+      imageUri: '/src/assets/yes-icon.png',
+      translations: {
+        en: 'yes',
+        ru: 'да',
+        he: 'כן'
+      }
     },
     {
       id: 'tile-no',
@@ -147,7 +232,12 @@ export const seedData = {
       categoryId: 'core-words',
       type: 'core',
       order: 9,
-      imageUri: '/src/assets/no-icon.png'
+      imageUri: '/src/assets/no-icon.png',
+      translations: {
+        en: 'no',
+        ru: 'нет',
+        he: 'לא'
+      }
     },
     {
       id: 'tile-like',
@@ -180,7 +270,12 @@ export const seedData = {
       type: 'noun',
       order: 0,
       variants: ['mom', 'mommy', 'mother'],
-      imageUri: '/src/assets/mom-icon.png'
+      imageUri: '/src/assets/mom-icon.png',
+      translations: {
+        en: 'mom',
+        ru: 'мама',
+        he: 'אמא'
+      }
     },
     {
       id: 'tile-dad',
@@ -189,35 +284,60 @@ export const seedData = {
       type: 'noun',
       order: 1,
       variants: ['dad', 'daddy', 'father'],
-      imageUri: '/src/assets/dad-icon.png'
+      imageUri: '/src/assets/dad-icon.png',
+      translations: {
+        en: 'dad',
+        ru: 'папа',
+        he: 'אבא'
+      }
     },
     {
       id: 'tile-sister',
       label: 'sister',
       categoryId: 'people',
       type: 'noun',
-      order: 2
+      order: 2,
+      translations: {
+        en: 'sister',
+        ru: 'сестра',
+        he: 'אחות'
+      }
     },
     {
       id: 'tile-brother',
       label: 'brother',
       categoryId: 'people',
       type: 'noun',
-      order: 3
+      order: 3,
+      translations: {
+        en: 'brother',
+        ru: 'брат',
+        he: 'אח'
+      }
     },
     {
       id: 'tile-teacher',
       label: 'teacher',
       categoryId: 'people',
       type: 'noun',
-      order: 4
+      order: 4,
+      translations: {
+        en: 'teacher',
+        ru: 'учитель',
+        he: 'מורה'
+      }
     },
     {
       id: 'tile-friend',
       label: 'friend',
       categoryId: 'people',
       type: 'noun',
-      order: 5
+      order: 5,
+      translations: {
+        en: 'friend',
+        ru: 'друг',
+        he: 'חבר'
+      }
     },
 
     // Actions
@@ -227,7 +347,12 @@ export const seedData = {
       categoryId: 'actions',
       type: 'verb',
       order: 0,
-      imageUri: '/src/assets/eat-icon.png'
+      imageUri: '/src/assets/eat-icon.png',
+      translations: {
+        en: 'eat',
+        ru: 'есть',
+        he: 'לאכול'
+      }
     },
     {
       id: 'tile-drink',
@@ -235,7 +360,12 @@ export const seedData = {
       categoryId: 'actions',
       type: 'verb',
       order: 1,
-      imageUri: '/src/assets/drink-icon.png'
+      imageUri: '/src/assets/drink-icon.png',
+      translations: {
+        en: 'drink',
+        ru: 'пить',
+        he: 'לשתות'
+      }
     },
     {
       id: 'tile-play',
@@ -243,7 +373,12 @@ export const seedData = {
       categoryId: 'actions',
       type: 'verb',
       order: 2,
-      imageUri: '/src/assets/play-icon.png'
+      imageUri: '/src/assets/play-icon.png',
+      translations: {
+        en: 'play',
+        ru: 'играть',
+        he: 'לשחק'
+      }
     },
     {
       id: 'tile-sleep',
@@ -251,59 +386,99 @@ export const seedData = {
       categoryId: 'actions',
       type: 'verb',
       order: 3,
-      imageUri: '/src/assets/sleep-icon.png'
+      imageUri: '/src/assets/sleep-icon.png',
+      translations: {
+        en: 'sleep',
+        ru: 'спать',
+        he: 'לישון'
+      }
     },
     {
       id: 'tile-sit',
       label: 'sit',
       categoryId: 'actions',
       type: 'verb',
-      order: 4
+      order: 4,
+      translations: {
+        en: 'sit',
+        ru: 'сидеть',
+        he: 'לשבת'
+      }
     },
     {
       id: 'tile-walk',
       label: 'walk',
       categoryId: 'actions',
       type: 'verb',
-      order: 5
+      order: 5,
+      translations: {
+        en: 'walk',
+        ru: 'ходить',
+        he: 'ללכת'
+      }
     },
     {
       id: 'tile-run',
       label: 'run',
       categoryId: 'actions',
       type: 'verb',
-      order: 6
+      order: 6,
+      translations: {
+        en: 'run',
+        ru: 'бегать',
+        he: 'לרוץ'
+      }
     },
     {
       id: 'tile-look',
       label: 'look',
       categoryId: 'actions',
       type: 'verb',
-      order: 7
+      order: 7,
+      translations: {
+        en: 'look',
+        ru: 'смотреть',
+        he: 'להסתכל'
+      }
     },
 
-    // Food & Drink - with some example images
+    // Food & Drink - with example images
     {
       id: 'tile-water',
       label: 'water',
       categoryId: 'food',
       type: 'noun',
       order: 0,
-      imageUri: '/src/assets/water-icon.png'
+      imageUri: '/src/assets/water-icon.png',
+      translations: {
+        en: 'water',
+        ru: 'вода',
+        he: 'מים'
+      }
     },
     {
       id: 'tile-milk',
       label: 'milk',
       categoryId: 'food',
       type: 'noun',
-      order: 1
+      order: 1,
+      translations: {
+        en: 'milk',
+        ru: 'молоко',
+        he: 'חלב'
+      }
     },
     {
       id: 'tile-juice',
       label: 'juice',
       categoryId: 'food',
       type: 'noun',
-      order: 2
+      order: 2,
+      translations: {
+        en: 'juice',
+        ru: 'сок',
+        he: 'מיץ'
+      }
     },
     {
       id: 'tile-apple',
@@ -311,7 +486,12 @@ export const seedData = {
       categoryId: 'food',
       type: 'noun',
       order: 3,
-      imageUri: '/src/assets/apple-icon.png'
+      imageUri: '/src/assets/apple-icon.png',
+      translations: {
+        en: 'apple',
+        ru: 'яблоко',
+        he: 'תפוח'
+      }
     },
     {
       id: 'tile-banana',
@@ -319,21 +499,36 @@ export const seedData = {
       categoryId: 'food',
       type: 'noun',
       order: 4,
-      imageUri: '/src/assets/banana-icon.png'
+      imageUri: '/src/assets/banana-icon.png',
+      translations: {
+        en: 'banana',
+        ru: 'банан',
+        he: 'בננה'
+      }
     },
     {
       id: 'tile-bread',
       label: 'bread',
       categoryId: 'food',
       type: 'noun',
-      order: 5
+      order: 5,
+      translations: {
+        en: 'bread',
+        ru: 'хлеб',
+        he: 'לחם'
+      }
     },
     {
       id: 'tile-cookie',
       label: 'cookie',
       categoryId: 'food',
       type: 'noun',
-      order: 6
+      order: 6,
+      translations: {
+        en: 'cookie',
+        ru: 'печенье',
+        he: 'עוגיה'
+      }
     },
 
     // Feelings - with example image
@@ -343,7 +538,12 @@ export const seedData = {
       categoryId: 'feelings',
       type: 'adjective',
       order: 0,
-      imageUri: '/src/assets/happy-icon.png'
+      imageUri: '/src/assets/happy-icon.png',
+      translations: {
+        en: 'happy',
+        ru: 'счастливый',
+        he: 'שמח'
+      }
     },
     {
       id: 'tile-sad',
@@ -351,28 +551,48 @@ export const seedData = {
       categoryId: 'feelings',
       type: 'adjective',
       order: 1,
-      imageUri: '/src/assets/sad-icon.png'
+      imageUri: '/src/assets/sad-icon.png',
+      translations: {
+        en: 'sad',
+        ru: 'грустный',
+        he: 'עצוב'
+      }
     },
     {
       id: 'tile-angry',
       label: 'angry',
       categoryId: 'feelings',
       type: 'adjective',
-      order: 2
+      order: 2,
+      translations: {
+        en: 'angry',
+        ru: 'злой',
+        he: 'כועס'
+      }
     },
     {
       id: 'tile-tired',
       label: 'tired',
       categoryId: 'feelings',
       type: 'adjective',
-      order: 3
+      order: 3,
+      translations: {
+        en: 'tired',
+        ru: 'уставший',
+        he: 'עייף'
+      }
     },
     {
       id: 'tile-excited',
       label: 'excited',
       categoryId: 'feelings',
       type: 'adjective',
-      order: 4
+      order: 4,
+      translations: {
+        en: 'excited',
+        ru: 'взволнованный',
+        he: 'נרגש'
+      }
     },
 
     // Places
@@ -382,7 +602,12 @@ export const seedData = {
       categoryId: 'places',
       type: 'noun',
       order: 0,
-      imageUri: '/src/assets/home-icon.png'
+      imageUri: '/src/assets/home-icon.png',
+      translations: {
+        en: 'home',
+        ru: 'дом',
+        he: 'בית'
+      }
     },
     {
       id: 'tile-school',
@@ -390,28 +615,48 @@ export const seedData = {
       categoryId: 'places',
       type: 'noun',
       order: 1,
-      imageUri: '/src/assets/school-icon.png'
+      imageUri: '/src/assets/school-icon.png',
+      translations: {
+        en: 'school',
+        ru: 'школа',
+        he: 'בית ספר'
+      }
     },
     {
       id: 'tile-park',
       label: 'park',
       categoryId: 'places',
       type: 'noun',
-      order: 2
+      order: 2,
+      translations: {
+        en: 'park',
+        ru: 'парк',
+        he: 'פארק'
+      }
     },
     {
       id: 'tile-store',
       label: 'store',
       categoryId: 'places',
       type: 'noun',
-      order: 3
+      order: 3,
+      translations: {
+        en: 'store',
+        ru: 'магазин',
+        he: 'חנות'
+      }
     },
     {
       id: 'tile-car',
       label: 'car',
       categoryId: 'places',
       type: 'noun',
-      order: 4
+      order: 4,
+      translations: {
+        en: 'car',
+        ru: 'машина',
+        he: 'מכונית'
+      }
     },
 
     // Time
@@ -420,28 +665,48 @@ export const seedData = {
       label: 'now',
       categoryId: 'time',
       type: 'core',
-      order: 0
+      order: 0,
+      translations: {
+        en: 'now',
+        ru: 'сейчас',
+        he: 'עכשיו'
+      }
     },
     {
       id: 'tile-later',
       label: 'later',
       categoryId: 'time',
       type: 'core',
-      order: 1
+      order: 1,
+      translations: {
+        en: 'later',
+        ru: 'позже',
+        he: 'אחר כך'
+      }
     },
     {
       id: 'tile-today',
       label: 'today',
       categoryId: 'time',
       type: 'noun',
-      order: 2
+      order: 2,
+      translations: {
+        en: 'today',
+        ru: 'сегодня',
+        he: 'היום'
+      }
     },
     {
       id: 'tile-tomorrow',
       label: 'tomorrow',
       categoryId: 'time',
       type: 'noun',
-      order: 3
+      order: 3,
+      translations: {
+        en: 'tomorrow',
+        ru: 'завтра',
+        he: 'מחר'
+      }
     },
 
     // Descriptors
@@ -450,42 +715,72 @@ export const seedData = {
       label: 'big',
       categoryId: 'descriptors',
       type: 'adjective',
-      order: 0
+      order: 0,
+      translations: {
+        en: 'big',
+        ru: 'большой',
+        he: 'גדול'
+      }
     },
     {
       id: 'tile-little',
       label: 'little',
       categoryId: 'descriptors',
       type: 'adjective',
-      order: 1
+      order: 1,
+      translations: {
+        en: 'little',
+        ru: 'маленький',
+        he: 'קטן'
+      }
     },
     {
       id: 'tile-hot',
       label: 'hot',
       categoryId: 'descriptors',
       type: 'adjective',
-      order: 2
+      order: 2,
+      translations: {
+        en: 'hot',
+        ru: 'горячий',
+        he: 'חם'
+      }
     },
     {
       id: 'tile-cold',
       label: 'cold',
       categoryId: 'descriptors',
       type: 'adjective',
-      order: 3
+      order: 3,
+      translations: {
+        en: 'cold',
+        ru: 'холодный',
+        he: 'קר'
+      }
     },
     {
       id: 'tile-good',
       label: 'good',
       categoryId: 'descriptors',
       type: 'adjective',
-      order: 4
+      order: 4,
+      translations: {
+        en: 'good',
+        ru: 'хороший',
+        he: 'טוב'
+      }
     },
     {
       id: 'tile-bad',
       label: 'bad',
       categoryId: 'descriptors',
       type: 'adjective',
-      order: 5
+      order: 5,
+      translations: {
+        en: 'bad',
+        ru: 'плохой',
+        he: 'רע'
+      }
     }
   ] as Tile[]
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import { Category } from '@/types';
 import { cn } from '@/lib/utils';
 import { useStore } from '@/store/useStore';
+import { getCategoryName, getTextDirection } from '@/lib/translations';
 
 interface CategoryGridProps {
   onCategorySelect: (category: Category) => void;
@@ -13,6 +14,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({
   className 
 }) => {
   const { categories, preferences } = useStore();
+  const textDirection = getTextDirection(preferences.language);
 
   const sortedCategories = [...categories].sort((a, b) => a.order - b.order);
 
@@ -53,8 +55,11 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({
             </div>
             
             {/* Category Name */}
-            <span className="font-semibold text-sm sm:text-base text-center leading-tight">
-              {category.name}
+            <span 
+              className="font-semibold text-sm sm:text-base text-center leading-tight"
+              dir={textDirection}
+            >
+              {getCategoryName(category, preferences.language)}
             </span>
             
             {/* Ripple effect */}

@@ -5,13 +5,14 @@ import { SentenceItem } from '@/types';
 import { cn } from '@/lib/utils';
 import { speak, stopSpeaking } from '@/lib/tts';
 import { useStore } from '@/store/useStore';
+import { getTileText } from '@/lib/translations';
 
 interface SentenceStripProps {
   className?: string;
 }
 
 export const SentenceStrip: React.FC<SentenceStripProps> = ({ className }) => {
-  const { sentence, removeFromSentence, clearSentence, preferences } = useStore();
+  const { sentence, removeFromSentence, clearSentence, preferences, tiles } = useStore();
   const [isSpeaking, setIsSpeaking] = React.useState(false);
 
   const handleSpeak = async () => {
@@ -20,8 +21,16 @@ export const SentenceStrip: React.FC<SentenceStripProps> = ({ className }) => {
     setIsSpeaking(true);
     
     try {
+      // Build sentence using translations
       const text = sentence
-        .map(item => item.ttsOverride || item.label)
+        .map(item => {
+          // Find the full tile to get translations
+          const fullTile = tiles.find(t => t.id === item.tileId);
+          if (fullTile) {
+            return item.ttsOverride || getTileText(fullTile, preferences.language);
+          }
+          return item.ttsOverride || item.label;
+        })
         .join(' ');
       
       await speak(text, {
@@ -120,7 +129,10 @@ export const SentenceStrip: React.FC<SentenceStripProps> = ({ className }) => {
               
               {/* Text */}
               <span className="text-sm font-medium">
-                {item.label}
+                {(() => {
+                  const fullTile = tiles.find(t => t.id === item.tileId);
+                  return fullTile ? getTileText(fullTile, preferences.language) : item.label;
+                })()}
               </span>
               
               {/* Remove button */}
@@ -139,7 +151,12 @@ export const SentenceStrip: React.FC<SentenceStripProps> = ({ className }) => {
       {/* Sentence preview text */}
       {sentence.length > 0 && (
         <div className="mt-2 p-2 bg-muted/50 rounded text-sm text-muted-foreground">
-          "{sentence.map(item => item.ttsOverride || item.label).join(' ')}"
+          "{sentence.map(item => {
+            const fullTile = tiles.find(t => t.id === item.tileId);
+            return fullTile 
+              ? (item.ttsOverride || getTileText(fullTile, preferences.language))
+              : (item.ttsOverride || item.label);
+          }).join(' ')}"
         </div>
       )}
     </div>

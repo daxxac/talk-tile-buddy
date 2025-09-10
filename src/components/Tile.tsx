@@ -1,6 +1,8 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Tile as TileType } from '@/types';
+import { useStore } from '@/store/useStore';
+import { getTileText, getTextDirection } from '@/lib/translations';
 
 interface TileProps {
   tile: TileType;
@@ -17,6 +19,11 @@ export const Tile: React.FC<TileProps> = ({
   className,
   size = 'medium'
 }) => {
+  const { preferences } = useStore();
+  
+  const displayText = getTileText(tile, preferences.language);
+  const textDirection = getTextDirection(preferences.language);
+
   const handleClick = () => {
     onClick(tile);
     
@@ -58,8 +65,11 @@ export const Tile: React.FC<TileProps> = ({
       
       {/* Text Label */}
       {showText && (
-        <span className="font-semibold text-center leading-tight break-words">
-          {tile.label}
+        <span 
+          className="font-semibold text-center leading-tight break-words"
+          dir={textDirection}
+        >
+          {displayText}
         </span>
       )}
       
