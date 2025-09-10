@@ -185,8 +185,8 @@
   /* AAC Tile base styles */
   .tile-base {
     @apply min-h-[88px] min-w-[88px] rounded-xl border-2 border-border 
-           bg-card text-card-foreground shadow-[var(--shadow-tile)]
-           transition-all duration-[var(--transition-fast)]
+           bg-card text-card-foreground shadow-tile
+           transition-all duration-150
            touch-manipulation select-none cursor-pointer
            flex flex-col items-center justify-center gap-2 p-3
            active:scale-95 hover:shadow-lg;
@@ -221,14 +221,14 @@
   .sentence-strip {
     @apply bg-[hsl(var(--sentence-strip))] border-[hsl(var(--sentence-strip-border))]
            border-2 rounded-xl p-4 min-h-[100px] 
-           shadow-[var(--shadow-md)];
+           shadow-md;
   }
 
   /* Touch-friendly button base */
   .btn-touch {
     @apply min-h-[var(--touch-target)] min-w-[var(--touch-target)]
            touch-manipulation select-none cursor-pointer
-           transition-all duration-[var(--transition-fast)]
+           transition-all duration-150
            active:scale-95;
   }
 

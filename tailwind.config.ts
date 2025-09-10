@@ -100,17 +100,6 @@ export default {
         '3xl': 'var(--font-size-3xl)',
         'tile': 'var(--font-size-tile)',
       },
-      boxShadow: {
-        'sm': 'var(--shadow-sm)',
-        'md': 'var(--shadow-md)',
-        'lg': 'var(--shadow-lg)',
-        'tile': 'var(--shadow-tile)',
-      },
-      transitionDuration: {
-        'fast': 'var(--transition-fast)',
-        'base': 'var(--transition-base)',
-        'slow': 'var(--transition-slow)',
-      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
