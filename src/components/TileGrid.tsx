@@ -118,15 +118,20 @@ export const TileGrid: React.FC<TileGridProps> = ({
           
           {/* Mobile: Only essential buttons */}
           <div className="flex items-center gap-1 sm:hidden">
-            {/* Search toggle for mobile */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setSearchQuery(searchQuery ? '' : 'search')}
-              className="btn-touch p-2"
-            >
-              <Search className="w-4 h-4" />
-            </Button>
+            {/* Search toggle - only in caregiver mode */}
+            {preferences.caregiverMode && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setSearchQuery(searchQuery ? '' : 'search')}
+                className="btn-touch p-2"
+              >
+                <Search className="w-4 h-4" />
+              </Button>
+            )}
+            
+            {/* Compact Language Selector */}
+            <LanguageSelector />
             
             {/* Settings button */}
             <Button
@@ -163,16 +168,18 @@ export const TileGrid: React.FC<TileGridProps> = ({
               </Button>
             )}
             
-            {/* Search */}
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <Input
-                placeholder={getUIText('searchTiles', preferences.language)}
-                value={searchQuery}
-                onChange={handleSearchChange}
-                className="pl-10 w-32 md:w-40 lg:w-48"
-              />
-            </div>
+            {/* Search - Only in caregiver mode */}
+            {preferences.caregiverMode && (
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                <Input
+                  placeholder={getUIText('searchTiles', preferences.language)}
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  className="pl-10 w-32 md:w-40 lg:w-48"
+                />
+              </div>
+            )}
             
             {/* Settings - Toggle Caregiver Mode */}
             <Button
@@ -193,26 +200,22 @@ export const TileGrid: React.FC<TileGridProps> = ({
           </div>
         </div>
 
-        {/* Mobile: Second row with expanded controls */}
-        <div className="sm:hidden border-t border-border/50 p-2 space-y-2">
-          {/* Search bar - always visible on mobile */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input
-              placeholder={getUIText('searchTiles', preferences.language)}
-              value={searchQuery}
-              onChange={handleSearchChange}
-              className="pl-10 w-full"
-            />
-          </div>
-          
-          {/* Mobile controls row */}
-          <div className="flex items-center justify-between">
-            {/* Language Selector */}
-            <LanguageSelector />
+        {/* Mobile: Second row with expanded controls - Only in caregiver mode */}
+        {preferences.caregiverMode && (
+          <div className="sm:hidden border-t border-border/50 p-2 space-y-2">
+            {/* Search bar - always visible on mobile in caregiver mode */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input
+                placeholder={getUIText('searchTiles', preferences.language)}
+                value={searchQuery}
+                onChange={handleSearchChange}
+                className="pl-10 w-full"
+              />
+            </div>
             
-            {/* Add Tile Button - Only visible in caregiver mode */}
-            {preferences.caregiverMode && (
+            {/* Add Tile Button */}
+            <div className="flex justify-center">
               <Button
                 onClick={() => setShowAddModal(true)}
                 className="btn-touch bg-success text-success-foreground hover:bg-success/90"
@@ -221,9 +224,9 @@ export const TileGrid: React.FC<TileGridProps> = ({
                 <Plus className="w-4 h-4" />
                 <span className="ml-1">{getUIText('addTile', preferences.language)}</span>
               </Button>
-            )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Tiles Grid */}

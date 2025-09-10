@@ -31,12 +31,12 @@ export const LanguageSelector: React.FC = () => {
         <Button 
           variant="ghost" 
           size="sm"
-          className="btn-touch gap-2"
+          className="btn-touch gap-1 px-2"
           aria-label="Select language"
         >
-          <Globe className="w-4 h-4" />
-          <span className="text-sm">
-            {LANGUAGE_FLAGS[preferences.language]} {LANGUAGE_NAMES[preferences.language]}
+          <span className="text-base">{LANGUAGE_FLAGS[preferences.language]}</span>
+          <span className="text-xs font-medium hidden sm:inline">
+            {LANGUAGE_NAMES[preferences.language]}
           </span>
         </Button>
       </DropdownMenuTrigger>
