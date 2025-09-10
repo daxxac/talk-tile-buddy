@@ -55,14 +55,33 @@ class TTSManager {
   }
 
   public getDefaultVoice(language: string = 'en'): SpeechSynthesisVoice | null {
-    const languageVoices = this.getVoicesByLanguage(language);
+    // Map language codes to full locale codes for better voice matching
+    const languageMap: Record<string, string[]> = {
+      'en': ['en-US', 'en-GB', 'en-CA', 'en-AU', 'en'],
+      'ru': ['ru-RU', 'ru', 'ru-BY'],
+      'he': ['he-IL', 'he', 'iw-IL', 'iw']
+    };
+
+    const targetLanguages = languageMap[language] || [language];
     
-    // Prefer local voices
-    const localVoice = languageVoices.find(voice => voice.localService);
-    if (localVoice) return localVoice;
+    // Try each language variant
+    for (const lang of targetLanguages) {
+      const languageVoices = this.voices.filter(voice => 
+        voice.lang.toLowerCase().startsWith(lang.toLowerCase())
+      );
+      
+      if (languageVoices.length > 0) {
+        // Prefer local voices
+        const localVoice = languageVoices.find(voice => voice.localService);
+        if (localVoice) return localVoice;
+        
+        // Fallback to any voice for the language
+        return languageVoices[0];
+      }
+    }
     
-    // Fallback to any voice for the language
-    return languageVoices[0] || this.voices[0] || null;
+    // Ultimate fallback to default system voice
+    return this.voices.find(voice => voice.default) || this.voices[0] || null;
   }
 
   public speak(text: string, options: TTSOptions = {}): Promise<void> {
@@ -82,31 +101,68 @@ class TTSManager {
 
       const utterance = new SpeechSynthesisUtterance(text);
       
+      // Map language codes to proper locale codes
+      const languageMap: Record<string, string> = {
+        'en': 'en-US',
+        'ru': 'ru-RU',
+        'he': 'he-IL'
+      };
+      
+      const targetLanguage = options.language ? (languageMap[options.language] || options.language) : 'en-US';
+      
       // Set voice
       if (options.voice) {
         utterance.voice = options.voice;
-      } else if (options.language) {
-        const defaultVoice = this.getDefaultVoice(options.language);
+      } else {
+        const defaultVoice = this.getDefaultVoice(options.language || 'en');
         if (defaultVoice) {
           utterance.voice = defaultVoice;
         }
       }
 
       // Set other options
-      utterance.rate = options.rate ?? 1.0;
+      utterance.rate = options.rate ?? 0.9; // Slightly slower for better clarity
       utterance.pitch = options.pitch ?? 1.0;
       utterance.volume = options.volume ?? 1.0;
       
-      if (options.language) {
-        utterance.lang = options.language;
-      }
+      // Set language with proper locale
+      utterance.lang = targetLanguage;
 
       // Set up event handlers
       utterance.onend = () => resolve();
-      utterance.onerror = () => reject(new Error('Speech synthesis failed'));
+      utterance.onerror = (event) => {
+        console.error('TTS Error:', event);
+        // Don't reject, just resolve to prevent blocking
+        resolve();
+      };
 
-      // Speak
-      this.synth.speak(utterance);
+      // Add timeout as fallback
+      const timeout = setTimeout(() => {
+        this.synth.cancel();
+        resolve();
+      }, 30000); // 30 second timeout
+
+      utterance.onend = () => {
+        clearTimeout(timeout);
+        resolve();
+      };
+
+      // Speak with retry mechanism
+      try {
+        this.synth.speak(utterance);
+        
+        // Force start speaking if it doesn't start within 100ms (browser bug workaround)
+        setTimeout(() => {
+          if (!this.synth.speaking && !this.synth.pending) {
+            this.synth.cancel();
+            this.synth.speak(utterance);
+          }
+        }, 100);
+      } catch (error) {
+        clearTimeout(timeout);
+        console.error('TTS Speak Error:', error);
+        resolve(); // Don't reject, just resolve
+      }
     });
   }
 

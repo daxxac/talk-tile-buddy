@@ -108,52 +108,60 @@ export const SentenceStrip: React.FC<SentenceStripProps> = ({ className }) => {
             {getUIText('tapTilesToBuild', preferences.language)}
           </div>
         ) : (
-          sentence.map((item, index) => (
-            <div
-              key={`${item.tileId}-${index}`}
-              className={cn(
-                'relative flex items-center gap-2 px-3 py-2 rounded-lg border-2',
-                'bg-card text-card-foreground shadow-sm',
-                `border-tile-${item.type}/50`,
-                'group hover:shadow-md transition-shadow'
-              )}
-            >
-              {/* Image */}
-              {item.imageUri && (
-                <>
-                  {/* Check if it's an emoji or image URL */}
-                  {!item.imageUri.startsWith('http') && !item.imageUri.startsWith('/') ? (
-                    <span className="text-lg filter drop-shadow-sm">
-                      {item.imageUri}
-                    </span>
-                  ) : (
-                    <img
-                      src={item.imageUri}
-                      alt={item.label}
-                      className="w-6 h-6 object-cover rounded"
-                    />
-                  )}
-                </>
-              )}
-              
-              {/* Text */}
-              <span className="text-sm font-medium">
-                {(() => {
-                  const fullTile = tiles.find(t => t.id === item.tileId);
-                  return fullTile ? getTileText(fullTile, preferences.language) : item.label;
-                })()}
-              </span>
-              
-              {/* Remove button */}
-              <button
-                onClick={() => handleRemoveItem(index)}
-                className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-destructive/20 rounded"
-                aria-label={`Remove ${item.label}`}
+          sentence.map((item, index) => {
+            const fullTile = tiles.find(t => t.id === item.tileId);
+            if (!fullTile) return null;
+            
+            return (
+              <div
+                key={`${item.tileId}-${index}`}
+                className={cn(
+                  'relative group',
+                  'tile-base',
+                  `tile-${item.type}`,
+                  'min-h-[64px] min-w-[64px]',
+                  'flex flex-col items-center justify-center gap-1 p-2'
+                )}
               >
-                <X className="w-3 h-3 text-destructive" />
-              </button>
-            </div>
-          ))
+                {/* Image */}
+                {fullTile.imageUri && (
+                  <>
+                    {/* Check if it's an emoji or image URL */}
+                    {!fullTile.imageUri.startsWith('http') && !fullTile.imageUri.startsWith('/') ? (
+                      <span className="text-2xl filter drop-shadow-sm">
+                        {fullTile.imageUri}
+                      </span>
+                    ) : (
+                      <img
+                        src={fullTile.imageUri}
+                        alt={fullTile.label}
+                        className="w-8 h-8 object-cover rounded"
+                      />
+                    )}
+                  </>
+                )}
+                
+                {/* Text - only shown in caregiver mode */}
+                {preferences.caregiverMode && (
+                  <span className="text-xs font-medium text-center leading-tight">
+                    {getTileText(fullTile, preferences.language)}
+                  </span>
+                )}
+                
+                {/* Remove button */}
+                <button
+                  onClick={() => handleRemoveItem(index)}
+                  className="absolute -top-1 -right-1 opacity-0 group-hover:opacity-100 transition-opacity p-1 bg-destructive text-destructive-foreground rounded-full text-xs w-5 h-5 flex items-center justify-center hover:scale-110"
+                  aria-label={`Remove ${fullTile.label}`}
+                >
+                  <X className="w-2 h-2" />
+                </button>
+                
+                {/* Ripple effect */}
+                <div className="absolute inset-0 bg-white/20 opacity-0 group-active:opacity-100 transition-opacity duration-fast rounded-xl" />
+              </div>
+            );
+          })
         )}
       </div>
       
