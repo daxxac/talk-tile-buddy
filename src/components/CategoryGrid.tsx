@@ -42,7 +42,8 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({
               'h-24 sm:h-32 flex-col gap-2',
               'bg-card text-card-foreground border-border',
               'hover:shadow-lg hover:scale-105',
-              'transition-all duration-300'
+              'transition-all duration-300',
+              'group relative'
             )}
             aria-label={`Open ${category.name} category`}
           >
@@ -57,7 +58,7 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({
             </span>
             
             {/* Ripple effect */}
-            <div className="absolute inset-0 bg-primary/10 opacity-0 group-active:opacity-100 transition-opacity duration-fast rounded-xl" />
+            <div className="absolute inset-0 bg-primary/10 opacity-0 group-active:opacity-100 transition-opacity duration-150 rounded-xl pointer-events-none" />
           </button>
         ))}
       </div>
