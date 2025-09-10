@@ -33,6 +33,24 @@ export const Tile: React.FC<TileProps> = ({
   const handleClick = () => {
     onClick(tile);
     
+    // Announce the tile content for accessibility
+    if ('speechSynthesis' in window) {
+      const announcement = `${displayText}`;
+      const utterance = new SpeechSynthesisUtterance(announcement);
+      utterance.rate = 0.9;
+      utterance.volume = 0.8;
+      
+      // Use browser's default voice for accessibility
+      const voices = window.speechSynthesis.getVoices();
+      const defaultVoice = voices.find(voice => voice.default) || voices[0];
+      if (defaultVoice) {
+        utterance.voice = defaultVoice;
+      }
+      
+      window.speechSynthesis.cancel(); // Cancel any existing speech
+      window.speechSynthesis.speak(utterance);
+    }
+    
     // Vibration feedback
     if (navigator.vibrate) {
       navigator.vibrate(50);
@@ -53,9 +71,13 @@ export const Tile: React.FC<TileProps> = ({
         `tile-${tile.type}`,
         sizeClasses[size],
         'group relative overflow-hidden',
+        'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
         className
       )}
-      aria-label={`${tile.label} tile`}
+      aria-label={`${displayText} tile. Press to select and hear.`}
+      aria-describedby={shouldShowText ? undefined : `tile-${tile.id}-desc`}
+      tabIndex={0}
+      role="button"
       style={
         isImageUrl ? {
           backgroundImage: `url(${tile.imageUri})`,
@@ -65,6 +87,13 @@ export const Tile: React.FC<TileProps> = ({
         } : undefined
       }
     >
+      {/* Screen reader description for non-caregiver mode */}
+      {!shouldShowText && (
+        <span id={`tile-${tile.id}-desc`} className="sr-only">
+          {displayText}
+        </span>
+      )}
+
       {/* Background overlay for text readability - only for image backgrounds */}
       {isImageUrl && shouldShowText && (
         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
@@ -79,6 +108,17 @@ export const Tile: React.FC<TileProps> = ({
           )}>
             {tile.imageUri}
           </span>
+        </div>
+      )}
+
+      {/* Image display */}
+      {isImageUrl && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <img 
+            src={tile.imageUri}
+            alt={displayText}
+            className="w-full h-full object-cover"
+          />
         </div>
       )}
       
