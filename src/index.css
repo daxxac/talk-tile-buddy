@@ -185,7 +185,7 @@
   /* AAC Tile base styles */
   .tile-base {
     @apply min-h-[88px] min-w-[88px] rounded-xl border-2 border-border 
-           bg-card text-card-foreground shadow-tile
+           bg-card text-card-foreground shadow-md
            transition-all duration-150
            touch-manipulation select-none cursor-pointer
            flex flex-col items-center justify-center gap-2 p-3
