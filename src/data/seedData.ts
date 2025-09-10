@@ -55,6 +55,14 @@ import hotImage from '../assets/kikoriki/hot.png';
 import coldImage from '../assets/kikoriki/cold.png';
 import goodImage from '../assets/kikoriki/good.png';
 import badImage from '../assets/kikoriki/bad.png';
+// New images
+import swimmingPoolImage from '../assets/kikoriki/swimming-pool.png';
+import oracleParkImage from '../assets/kikoriki/oracle-park.png';
+import watermelonImage from '../assets/kikoriki/watermelon.png';
+import friedPotatoesImage from '../assets/kikoriki/fried-potatoes.png';
+import chipsImage from '../assets/kikoriki/chips.png';
+import dietPepsiImage from '../assets/kikoriki/diet-pepsi.png';
+import colaZeroImage from '../assets/kikoriki/cola-zero.png';
 
 // This will be populated with default categories and tiles for new users
 export const seedData = {
@@ -616,6 +624,71 @@ export const seedData = {
         he: 'עוגיה'
       }
     },
+    {
+      id: 'tile-watermelon',
+      label: 'watermelon',
+      categoryId: 'food',
+      type: 'noun',
+      order: 7,
+      imageUri: watermelonImage,
+      translations: {
+        en: 'watermelon',
+        ru: 'арбуз',
+        he: 'אבטיח'
+      }
+    },
+    {
+      id: 'tile-fried-potatoes',
+      label: 'fried potatoes',
+      categoryId: 'food',
+      type: 'noun',
+      order: 8,
+      imageUri: friedPotatoesImage,
+      translations: {
+        en: 'fried potatoes',
+        ru: 'жареная картошка',
+        he: 'תפוחי אדמה מטוגנים'
+      }
+    },
+    {
+      id: 'tile-chips',
+      label: 'chips',
+      categoryId: 'food',
+      type: 'noun',
+      order: 9,
+      imageUri: chipsImage,
+      translations: {
+        en: 'chips',
+        ru: 'чипсы',
+        he: 'צ׳יפס'
+      }
+    },
+    {
+      id: 'tile-diet-pepsi',
+      label: 'Diet Pepsi',
+      categoryId: 'food',
+      type: 'noun',
+      order: 10,
+      imageUri: dietPepsiImage,
+      translations: {
+        en: 'Diet Pepsi',
+        ru: 'Диет Пепси',
+        he: 'דיאט פפסי'
+      }
+    },
+    {
+      id: 'tile-cola-zero',
+      label: 'Cola Zero',
+      categoryId: 'food',
+      type: 'noun',
+      order: 11,
+      imageUri: colaZeroImage,
+      translations: {
+        en: 'Cola Zero',
+        ru: 'Кола Зеро',
+        he: 'קולה זירו'
+      }
+    },
 
     // Feelings - with example image
     {
@@ -748,6 +821,32 @@ export const seedData = {
         en: 'car',
         ru: 'машина',
         he: 'מכונית'
+      }
+    },
+    {
+      id: 'tile-swimming-pool',
+      label: 'swimming pool',
+      categoryId: 'places',
+      type: 'noun',
+      order: 5,
+      imageUri: swimmingPoolImage,
+      translations: {
+        en: 'swimming pool',
+        ru: 'бассейн',
+        he: 'בריכת שחייה'
+      }
+    },
+    {
+      id: 'tile-oracle-park',
+      label: 'Oracle Park',
+      categoryId: 'places',
+      type: 'noun',
+      order: 6,
+      imageUri: oracleParkImage,
+      translations: {
+        en: 'Oracle Park',
+        ru: 'Оракл Парк',
+        he: 'אורקל פארק'
       }
     },
 
