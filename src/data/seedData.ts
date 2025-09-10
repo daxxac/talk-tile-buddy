@@ -540,6 +540,7 @@ export const seedData = {
       categoryId: 'food',
       type: 'noun',
       order: 5,
+      imageUri: '🍞',
       translations: {
         en: 'bread',
         ru: 'хлеб',
@@ -552,6 +553,7 @@ export const seedData = {
       categoryId: 'food',
       type: 'noun',
       order: 6,
+      imageUri: '🍪',
       translations: {
         en: 'cookie',
         ru: 'печенье',
@@ -592,6 +594,7 @@ export const seedData = {
       categoryId: 'feelings',
       type: 'adjective',
       order: 2,
+      imageUri: '😠',
       translations: {
         en: 'angry',
         ru: 'злой',
@@ -604,6 +607,7 @@ export const seedData = {
       categoryId: 'feelings',
       type: 'adjective',
       order: 3,
+      imageUri: '😴',
       translations: {
         en: 'tired',
         ru: 'уставший',
@@ -616,6 +620,7 @@ export const seedData = {
       categoryId: 'feelings',
       type: 'adjective',
       order: 4,
+      imageUri: '😃',
       translations: {
         en: 'excited',
         ru: 'взволнованный',
@@ -656,6 +661,7 @@ export const seedData = {
       categoryId: 'places',
       type: 'noun',
       order: 2,
+      imageUri: '🏞️',
       translations: {
         en: 'park',
         ru: 'парк',
@@ -668,6 +674,7 @@ export const seedData = {
       categoryId: 'places',
       type: 'noun',
       order: 3,
+      imageUri: '🏪',
       translations: {
         en: 'store',
         ru: 'магазин',
@@ -680,6 +687,7 @@ export const seedData = {
       categoryId: 'places',
       type: 'noun',
       order: 4,
+      imageUri: '🚗',
       translations: {
         en: 'car',
         ru: 'машина',
@@ -720,6 +728,7 @@ export const seedData = {
       categoryId: 'time',
       type: 'noun',
       order: 2,
+      imageUri: '📅',
       translations: {
         en: 'today',
         ru: 'сегодня',
@@ -732,6 +741,7 @@ export const seedData = {
       categoryId: 'time',
       type: 'noun',
       order: 3,
+      imageUri: '🌅',
       translations: {
         en: 'tomorrow',
         ru: 'завтра',
@@ -746,6 +756,7 @@ export const seedData = {
       categoryId: 'descriptors',
       type: 'adjective',
       order: 0,
+      imageUri: '📏',
       translations: {
         en: 'big',
         ru: 'большой',
@@ -758,6 +769,7 @@ export const seedData = {
       categoryId: 'descriptors',
       type: 'adjective',
       order: 1,
+      imageUri: '🤏',
       translations: {
         en: 'little',
         ru: 'маленький',
@@ -770,6 +782,7 @@ export const seedData = {
       categoryId: 'descriptors',
       type: 'adjective',
       order: 2,
+      imageUri: '🔥',
       translations: {
         en: 'hot',
         ru: 'горячий',
@@ -782,6 +795,7 @@ export const seedData = {
       categoryId: 'descriptors',
       type: 'adjective',
       order: 3,
+      imageUri: '🧊',
       translations: {
         en: 'cold',
         ru: 'холодный',
@@ -794,6 +808,7 @@ export const seedData = {
       categoryId: 'descriptors',
       type: 'adjective',
       order: 4,
+      imageUri: '👍',
       translations: {
         en: 'good',
         ru: 'хороший',
@@ -806,6 +821,7 @@ export const seedData = {
       categoryId: 'descriptors',
       type: 'adjective',
       order: 5,
+      imageUri: '👎',
       translations: {
         en: 'bad',
         ru: 'плохой',
