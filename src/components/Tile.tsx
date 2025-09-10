@@ -21,8 +21,16 @@ export const Tile: React.FC<TileProps> = ({
 }) => {
   const { preferences } = useStore();
   
+  console.log('Tile component render:', {
+    tileLabel: tile.label,
+    currentLanguage: preferences.language,
+    tileId: tile.id
+  });
+  
   const displayText = getTileText(tile, preferences.language);
   const textDirection = getTextDirection(preferences.language);
+
+  console.log('Tile displayText result:', displayText);
 
   const handleClick = () => {
     onClick(tile);
