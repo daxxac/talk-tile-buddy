@@ -69,14 +69,16 @@ export const seedData = {
       categoryId: 'core-words',
       type: 'pronoun',
       order: 0,
-      variants: ['me', 'myself']
+      variants: ['me', 'myself'],
+      imageUri: '/src/assets/i-icon.png'
     },
     {
       id: 'tile-you',
       label: 'you',
       categoryId: 'core-words',
       type: 'pronoun',
-      order: 1
+      order: 1,
+      imageUri: '/src/assets/you-icon.png'
     },
     {
       id: 'tile-want',
@@ -84,7 +86,8 @@ export const seedData = {
       categoryId: 'core-words',
       type: 'verb',
       order: 2,
-      variants: ['want', "don't want", 'need']
+      variants: ['want', "don't want", 'need'],
+      imageUri: '/src/assets/want-icon.png'
     },
     {
       id: 'tile-have',
@@ -92,7 +95,8 @@ export const seedData = {
       categoryId: 'core-words',
       type: 'verb',
       order: 3,
-      variants: ['have', "don't have", 'got']
+      variants: ['have', "don't have", 'got'],
+      imageUri: '/src/assets/have-icon.png'
     },
     {
       id: 'tile-go',
@@ -100,14 +104,16 @@ export const seedData = {
       categoryId: 'core-words',
       type: 'verb',
       order: 4,
-      variants: ['go', 'come', 'leave']
+      variants: ['go', 'come', 'leave'],
+      imageUri: '/src/assets/go-icon.png'
     },
     {
       id: 'tile-more',
       label: 'more',
       categoryId: 'core-words',
       type: 'core',
-      order: 5
+      order: 5,
+      imageUri: '/src/assets/more-icon.png'
     },
     {
       id: 'tile-stop',
@@ -115,7 +121,8 @@ export const seedData = {
       categoryId: 'core-words',
       type: 'core',
       order: 6,
-      variants: ['stop', 'no more', 'finished']
+      variants: ['stop', 'no more', 'finished'],
+      imageUri: '/src/assets/stop-icon.png'
     },
     {
       id: 'tile-help',
@@ -123,21 +130,24 @@ export const seedData = {
       categoryId: 'core-words',
       type: 'core',
       order: 7,
-      variants: ['help', 'help me', 'please help']
+      variants: ['help', 'help me', 'please help'],
+      imageUri: '/src/assets/help-icon.png'
     },
     {
       id: 'tile-yes',
       label: 'yes',
       categoryId: 'core-words',
       type: 'core',
-      order: 8
+      order: 8,
+      imageUri: '/src/assets/yes-icon.png'
     },
     {
       id: 'tile-no',
       label: 'no',
       categoryId: 'core-words',
       type: 'core',
-      order: 9
+      order: 9,
+      imageUri: '/src/assets/no-icon.png'
     },
     {
       id: 'tile-like',
@@ -169,7 +179,8 @@ export const seedData = {
       categoryId: 'people',
       type: 'noun',
       order: 0,
-      variants: ['mom', 'mommy', 'mother']
+      variants: ['mom', 'mommy', 'mother'],
+      imageUri: '/src/assets/mom-icon.png'
     },
     {
       id: 'tile-dad',
@@ -177,7 +188,8 @@ export const seedData = {
       categoryId: 'people',
       type: 'noun',
       order: 1,
-      variants: ['dad', 'daddy', 'father']
+      variants: ['dad', 'daddy', 'father'],
+      imageUri: '/src/assets/dad-icon.png'
     },
     {
       id: 'tile-sister',
@@ -214,28 +226,32 @@ export const seedData = {
       label: 'eat',
       categoryId: 'actions',
       type: 'verb',
-      order: 0
+      order: 0,
+      imageUri: '/src/assets/eat-icon.png'
     },
     {
       id: 'tile-drink',
       label: 'drink',
       categoryId: 'actions',
       type: 'verb',
-      order: 1
+      order: 1,
+      imageUri: '/src/assets/drink-icon.png'
     },
     {
       id: 'tile-play',
       label: 'play',
       categoryId: 'actions',
       type: 'verb',
-      order: 2
+      order: 2,
+      imageUri: '/src/assets/play-icon.png'
     },
     {
       id: 'tile-sleep',
       label: 'sleep',
       categoryId: 'actions',
       type: 'verb',
-      order: 3
+      order: 3,
+      imageUri: '/src/assets/sleep-icon.png'
     },
     {
       id: 'tile-sit',
@@ -302,7 +318,8 @@ export const seedData = {
       label: 'banana',
       categoryId: 'food',
       type: 'noun',
-      order: 4
+      order: 4,
+      imageUri: '/src/assets/banana-icon.png'
     },
     {
       id: 'tile-bread',
@@ -333,7 +350,8 @@ export const seedData = {
       label: 'sad',
       categoryId: 'feelings',
       type: 'adjective',
-      order: 1
+      order: 1,
+      imageUri: '/src/assets/sad-icon.png'
     },
     {
       id: 'tile-angry',
@@ -363,14 +381,16 @@ export const seedData = {
       label: 'home',
       categoryId: 'places',
       type: 'noun',
-      order: 0
+      order: 0,
+      imageUri: '/src/assets/home-icon.png'
     },
     {
       id: 'tile-school',
       label: 'school',
       categoryId: 'places',
       type: 'noun',
-      order: 1
+      order: 1,
+      imageUri: '/src/assets/school-icon.png'
     },
     {
       id: 'tile-park',
