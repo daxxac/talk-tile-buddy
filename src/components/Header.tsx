@@ -10,7 +10,7 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ className }) => {
   return (
     <header className={cn(
-      'flex items-center justify-center py-6 px-6 bg-background/80 backdrop-blur-sm border-b border-border/50',
+      'flex items-end justify-center py-6 px-6 bg-background/80 backdrop-blur-sm border-b border-border/50',
       className
     )}>
       <div className="flex items-center gap-4">
