@@ -8,13 +8,54 @@ export interface TTSOptions {
   language?: string;
 }
 
+// Language configuration for proper TTS mapping
+export const TTS_LANGUAGE_CONFIG = {
+  'en': {
+    locales: ['en-US', 'en-GB', 'en-CA', 'en-AU', 'en'],
+    name: 'English',
+    fallback: 'en-US'
+  },
+  'ru': {
+    locales: ['ru-RU', 'ru-BY', 'ru'],
+    name: 'Russian',
+    fallback: 'ru-RU'
+  },
+  'he': {
+    locales: ['he-IL', 'he', 'iw-IL', 'iw'], // iw is legacy Hebrew code
+    name: 'Hebrew',
+    fallback: 'he-IL'
+  }
+};
+
 class AccessibilityTTSManager {
   private liveRegion: HTMLElement | null = null;
   private synth: SpeechSynthesis;
+  private availableVoices: SpeechSynthesisVoice[] = [];
+  private voicesLoaded: boolean = false;
 
   constructor() {
     this.synth = window.speechSynthesis;
     this.createLiveRegion();
+    this.loadVoices();
+  }
+
+  private loadVoices(): void {
+    const updateVoices = () => {
+      this.availableVoices = this.synth.getVoices();
+      this.voicesLoaded = true;
+      console.log('TTS: Available voices loaded:', this.availableVoices.map(v => `${v.name} (${v.lang})`));
+    };
+
+    // Load voices immediately if available
+    updateVoices();
+
+    // Also listen for voiceschanged event (required for some browsers)
+    if (this.synth.onvoiceschanged !== undefined) {
+      this.synth.onvoiceschanged = updateVoices;
+    }
+
+    // Fallback timeout to ensure voices are loaded
+    setTimeout(updateVoices, 1000);
   }
 
   private createLiveRegion(): void {
@@ -30,7 +71,35 @@ class AccessibilityTTSManager {
     document.body.appendChild(this.liveRegion);
   }
 
-  public announceText(text: string): void {
+  private findBestVoice(language: string): SpeechSynthesisVoice | null {
+    const config = TTS_LANGUAGE_CONFIG[language as keyof typeof TTS_LANGUAGE_CONFIG];
+    if (!config) {
+      console.warn('TTS: No configuration for language:', language);
+      return this.availableVoices.find(v => v.default) || this.availableVoices[0] || null;
+    }
+
+    console.log(`TTS: Looking for ${config.name} voice among ${this.availableVoices.length} available voices`);
+
+    // Try each locale in priority order
+    for (const locale of config.locales) {
+      const matchingVoices = this.availableVoices.filter(voice => 
+        voice.lang.toLowerCase().startsWith(locale.toLowerCase())
+      );
+
+      if (matchingVoices.length > 0) {
+        // Prefer local voices over remote ones
+        const localVoice = matchingVoices.find(v => v.localService);
+        const selectedVoice = localVoice || matchingVoices[0];
+        console.log(`TTS: Selected ${config.name} voice:`, selectedVoice.name, `(${selectedVoice.lang})`);
+        return selectedVoice;
+      }
+    }
+
+    console.warn(`TTS: No ${config.name} voice found, using default system voice`);
+    return this.availableVoices.find(v => v.default) || this.availableVoices[0] || null;
+  }
+
+  public announceText(text: string, language: string = 'en'): void {
     if (this.liveRegion) {
       // Clear and set new text for screen reader
       this.liveRegion.textContent = '';
@@ -41,36 +110,63 @@ class AccessibilityTTSManager {
       }, 10);
     }
 
-    // Also try browser's built-in speech if available
-    this.tryNativeSpeech(text);
+    // Also use browser's speech synthesis with proper language configuration
+    this.speakWithLanguage(text, language);
   }
 
-  private tryNativeSpeech(text: string): void {
-    // Use browser's accessibility speech features
-    if ('speechSynthesis' in window && this.synth) {
-      // Cancel any ongoing speech
-      this.synth.cancel();
-      
-      const utterance = new SpeechSynthesisUtterance(text);
-      
-      // Use browser's default accessibility voice
-      const voices = this.synth.getVoices();
-      const defaultVoice = voices.find(voice => voice.default) || voices[0];
-      
-      if (defaultVoice) {
-        utterance.voice = defaultVoice;
-        utterance.lang = defaultVoice.lang;
-      }
-      
-      utterance.rate = 0.9;
-      utterance.pitch = 1.0;
-      utterance.volume = 1.0;
+  private speakWithLanguage(text: string, language: string): void {
+    if (!this.synth || !text.trim()) return;
 
-      try {
-        this.synth.speak(utterance);
-      } catch (error) {
-        console.log('Native speech not available, relying on screen reader');
-      }
+    // Cancel any ongoing speech
+    this.synth.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    const config = TTS_LANGUAGE_CONFIG[language as keyof typeof TTS_LANGUAGE_CONFIG];
+    
+    // Find and set the best voice for the language
+    const voice = this.findBestVoice(language);
+    if (voice) {
+      utterance.voice = voice;
+      utterance.lang = voice.lang;
+    } else if (config) {
+      // No specific voice found, but set the language code anyway
+      utterance.lang = config.fallback;
+    }
+
+    // Configure speech parameters for better accessibility
+    utterance.rate = 0.85; // Slightly slower for better comprehension
+    utterance.pitch = 1.0;
+    utterance.volume = 1.0;
+
+    console.log(`TTS: Speaking "${text}" in ${config?.name || language} (${utterance.lang})`);
+
+    // Handle events
+    utterance.onstart = () => {
+      console.log('TTS: Speech started');
+    };
+
+    utterance.onend = () => {
+      console.log('TTS: Speech ended');
+    };
+
+    utterance.onerror = (event) => {
+      console.error('TTS: Speech error:', event.error);
+    };
+
+    // Speak with retry mechanism for browser compatibility
+    try {
+      this.synth.speak(utterance);
+      
+      // Workaround for browsers that don't start speaking immediately
+      setTimeout(() => {
+        if (!this.synth.speaking && !this.synth.pending) {
+          console.log('TTS: Retrying speech...');
+          this.synth.cancel();
+          this.synth.speak(utterance);
+        }
+      }, 100);
+    } catch (error) {
+      console.error('TTS: Failed to speak:', error);
     }
   }
 
@@ -81,8 +177,10 @@ class AccessibilityTTSManager {
         return;
       }
 
-      // Use accessibility announcement
-      this.announceText(text);
+      const language = options.language || 'en';
+      
+      // Use accessibility announcement with proper language
+      this.announceText(text, language);
       
       // Resolve after a short delay to allow announcement
       setTimeout(() => resolve(), 500);
@@ -101,6 +199,18 @@ class AccessibilityTTSManager {
   public isSpeaking(): boolean {
     return this.synth ? this.synth.speaking : false;
   }
+
+  // Method to get available voices for a specific language
+  public getVoicesForLanguage(language: string): SpeechSynthesisVoice[] {
+    const config = TTS_LANGUAGE_CONFIG[language as keyof typeof TTS_LANGUAGE_CONFIG];
+    if (!config) return [];
+
+    return this.availableVoices.filter(voice => 
+      config.locales.some(locale => 
+        voice.lang.toLowerCase().startsWith(locale.toLowerCase())
+      )
+    );
+  }
 }
 
 // Create singleton instance
@@ -114,7 +224,7 @@ export function formatTextForSpeech(text: string): string {
     .trim();
 }
 
-// Quick speak function
+// Quick speak function with language support
 export async function speak(text: string, options: TTSOptions = {}): Promise<void> {
   const formattedText = formatTextForSpeech(text);
   return tts.speak(formattedText, options);

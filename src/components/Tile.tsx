@@ -33,22 +33,61 @@ export const Tile: React.FC<TileProps> = ({
   const handleClick = () => {
     onClick(tile);
     
-    // Announce the tile content for accessibility
+    // Announce the tile content for accessibility with proper language
+    const displayText = getTileText(tile, preferences.language);
+    
     if ('speechSynthesis' in window) {
-      const announcement = `${displayText}`;
-      const utterance = new SpeechSynthesisUtterance(announcement);
-      utterance.rate = 0.9;
-      utterance.volume = 0.8;
+      window.speechSynthesis.cancel(); // Cancel any existing speech
       
-      // Use browser's default voice for accessibility
+      const utterance = new SpeechSynthesisUtterance(displayText);
+      
+      // Map language to proper locale for TTS
+      const languageMap: Record<string, string> = {
+        'en': 'en-US',
+        'ru': 'ru-RU', 
+        'he': 'he-IL'
+      };
+      
+      const targetLanguage = languageMap[preferences.language] || 'en-US';
+      utterance.lang = targetLanguage;
+      
+      // Find best voice for the language
       const voices = window.speechSynthesis.getVoices();
-      const defaultVoice = voices.find(voice => voice.default) || voices[0];
-      if (defaultVoice) {
-        utterance.voice = defaultVoice;
+      let selectedVoice = voices.find(voice => 
+        voice.lang.toLowerCase().startsWith(preferences.language.toLowerCase())
+      );
+      
+      // If no specific language voice, try locale variants
+      if (!selectedVoice && preferences.language === 'ru') {
+        selectedVoice = voices.find(voice => 
+          voice.lang.toLowerCase().includes('ru')
+        );
+      } else if (!selectedVoice && preferences.language === 'he') {
+        selectedVoice = voices.find(voice => 
+          voice.lang.toLowerCase().includes('he') || voice.lang.toLowerCase().includes('iw')
+        );
       }
       
-      window.speechSynthesis.cancel(); // Cancel any existing speech
-      window.speechSynthesis.speak(utterance);
+      // Fallback to default system voice
+      if (!selectedVoice) {
+        selectedVoice = voices.find(voice => voice.default) || voices[0];
+      }
+      
+      if (selectedVoice) {
+        utterance.voice = selectedVoice;
+      }
+      
+      utterance.rate = 0.85;
+      utterance.volume = 0.9;
+      utterance.pitch = 1.0;
+      
+      console.log(`TTS: Speaking "${displayText}" in ${preferences.language} (${utterance.lang})`);
+      
+      try {
+        window.speechSynthesis.speak(utterance);
+      } catch (error) {
+        console.warn('TTS not available:', error);
+      }
     }
     
     // Vibration feedback

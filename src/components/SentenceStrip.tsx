@@ -33,9 +33,10 @@ export const SentenceStrip: React.FC<SentenceStripProps> = ({ className }) => {
         })
         .join(' ');
       
+      // Use the enhanced TTS system with proper language configuration
       await speak(text, {
         language: preferences.language,
-        rate: 1.0,
+        rate: 0.85,
         pitch: 1.0,
         volume: 1.0
       });
