@@ -110,7 +110,7 @@ export const seedData = {
       type: 'pronoun',
       order: 0,
       variants: ['me', 'myself'],
-      imageUri: '/src/assets/i-icon.png',
+      imageUri: '👤',
       translations: {
         en: 'I',
         ru: 'я',
@@ -123,7 +123,7 @@ export const seedData = {
       categoryId: 'core-words',
       type: 'pronoun',
       order: 1,
-      imageUri: '/src/assets/you-icon.png',
+      imageUri: '👤',
       translations: {
         en: 'you',
         ru: 'ты',
@@ -137,7 +137,7 @@ export const seedData = {
       type: 'verb',
       order: 2,
       variants: ['want', "don't want", 'need'],
-      imageUri: '/src/assets/want-icon.png',
+      imageUri: '🙏',
       translations: {
         en: 'want',
         ru: 'хочу',
@@ -151,7 +151,7 @@ export const seedData = {
       type: 'verb',
       order: 3,
       variants: ['have', "don't have", 'got'],
-      imageUri: '/src/assets/have-icon.png',
+      imageUri: '✋',
       translations: {
         en: 'have',
         ru: 'есть',
@@ -165,7 +165,7 @@ export const seedData = {
       type: 'verb',
       order: 4,
       variants: ['go', 'come', 'leave'],
-      imageUri: '/src/assets/go-icon.png',
+      imageUri: '➡️',
       translations: {
         en: 'go',
         ru: 'идти',
@@ -178,7 +178,7 @@ export const seedData = {
       categoryId: 'core-words',
       type: 'core',
       order: 5,
-      imageUri: '/src/assets/more-icon.png',
+      imageUri: '➕',
       translations: {
         en: 'more',
         ru: 'ещё',
@@ -192,7 +192,7 @@ export const seedData = {
       type: 'core',
       order: 6,
       variants: ['stop', 'no more', 'finished'],
-      imageUri: '/src/assets/stop-icon.png',
+      imageUri: '✋',
       translations: {
         en: 'stop',
         ru: 'стоп',
@@ -206,7 +206,7 @@ export const seedData = {
       type: 'core',
       order: 7,
       variants: ['help', 'help me', 'please help'],
-      imageUri: '/src/assets/help-icon.png',
+      imageUri: '🆘',
       translations: {
         en: 'help',
         ru: 'помощь',
@@ -219,7 +219,7 @@ export const seedData = {
       categoryId: 'core-words',
       type: 'core',
       order: 8,
-      imageUri: '/src/assets/yes-icon.png',
+      imageUri: '✅',
       translations: {
         en: 'yes',
         ru: 'да',
@@ -232,7 +232,7 @@ export const seedData = {
       categoryId: 'core-words',
       type: 'core',
       order: 9,
-      imageUri: '/src/assets/no-icon.png',
+      imageUri: '❌',
       translations: {
         en: 'no',
         ru: 'нет',
@@ -288,7 +288,7 @@ export const seedData = {
       type: 'noun',
       order: 0,
       variants: ['mom', 'mommy', 'mother'],
-      imageUri: '/src/assets/mom-icon.png',
+      imageUri: '👩',
       translations: {
         en: 'mom',
         ru: 'мама',
@@ -302,7 +302,7 @@ export const seedData = {
       type: 'noun',
       order: 1,
       variants: ['dad', 'daddy', 'father'],
-      imageUri: '/src/assets/dad-icon.png',
+      imageUri: '👨',
       translations: {
         en: 'dad',
         ru: 'папа',
@@ -369,7 +369,7 @@ export const seedData = {
       categoryId: 'actions',
       type: 'verb',
       order: 0,
-      imageUri: '/src/assets/eat-icon.png',
+      imageUri: '🍽️',
       translations: {
         en: 'eat',
         ru: 'есть',
@@ -382,7 +382,7 @@ export const seedData = {
       categoryId: 'actions',
       type: 'verb',
       order: 1,
-      imageUri: '/src/assets/drink-icon.png',
+      imageUri: '🥤',
       translations: {
         en: 'drink',
         ru: 'пить',
@@ -395,7 +395,7 @@ export const seedData = {
       categoryId: 'actions',
       type: 'verb',
       order: 2,
-      imageUri: '/src/assets/play-icon.png',
+      imageUri: '🎮',
       translations: {
         en: 'play',
         ru: 'играть',
@@ -408,7 +408,7 @@ export const seedData = {
       categoryId: 'actions',
       type: 'verb',
       order: 3,
-      imageUri: '/src/assets/sleep-icon.png',
+      imageUri: '😴',
       translations: {
         en: 'sleep',
         ru: 'спать',
@@ -475,7 +475,7 @@ export const seedData = {
       categoryId: 'food',
       type: 'noun',
       order: 0,
-      imageUri: '/src/assets/water-icon.png',
+      imageUri: '💧',
       translations: {
         en: 'water',
         ru: 'вода',
@@ -514,7 +514,7 @@ export const seedData = {
       categoryId: 'food',
       type: 'noun',
       order: 3,
-      imageUri: '/src/assets/apple-icon.png',
+      imageUri: '🍎',
       translations: {
         en: 'apple',
         ru: 'яблоко',
@@ -527,7 +527,7 @@ export const seedData = {
       categoryId: 'food',
       type: 'noun',
       order: 4,
-      imageUri: '/src/assets/banana-icon.png',
+      imageUri: '🍌',
       translations: {
         en: 'banana',
         ru: 'банан',
@@ -568,7 +568,7 @@ export const seedData = {
       categoryId: 'feelings',
       type: 'adjective',
       order: 0,
-      imageUri: '/src/assets/happy-icon.png',
+      imageUri: '😊',
       translations: {
         en: 'happy',
         ru: 'счастливый',
@@ -581,7 +581,7 @@ export const seedData = {
       categoryId: 'feelings',
       type: 'adjective',
       order: 1,
-      imageUri: '/src/assets/sad-icon.png',
+      imageUri: '😢',
       translations: {
         en: 'sad',
         ru: 'грустный',
@@ -635,7 +635,7 @@ export const seedData = {
       categoryId: 'places',
       type: 'noun',
       order: 0,
-      imageUri: '/src/assets/home-icon.png',
+      imageUri: '🏠',
       translations: {
         en: 'home',
         ru: 'дом',
@@ -648,7 +648,7 @@ export const seedData = {
       categoryId: 'places',
       type: 'noun',
       order: 1,
-      imageUri: '/src/assets/school-icon.png',
+      imageUri: '🏫',
       translations: {
         en: 'school',
         ru: 'школа',

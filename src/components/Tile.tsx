@@ -24,6 +24,9 @@ export const Tile: React.FC<TileProps> = ({
   const displayText = getTileText(tile, preferences.language);
   const textDirection = getTextDirection(preferences.language);
 
+  const isEmoji = tile.imageUri && !tile.imageUri.startsWith('http') && !tile.imageUri.startsWith('/');
+  const isImageUrl = tile.imageUri && (tile.imageUri.startsWith('http') || tile.imageUri.startsWith('/'));
+
   const handleClick = () => {
     onClick(tile);
     
@@ -50,16 +53,27 @@ export const Tile: React.FC<TileProps> = ({
         className
       )}
       aria-label={`${tile.label} tile`}
-      style={{
-        backgroundImage: tile.imageUri ? `url(${tile.imageUri})` : 'none',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
-      }}
+      style={
+        isImageUrl ? {
+          backgroundImage: `url(${tile.imageUri})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        } : undefined
+      }
     >
-      {/* Background overlay for text readability */}
-      {tile.imageUri && (
+      {/* Background overlay for text readability - only for image backgrounds */}
+      {isImageUrl && (
         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+      )}
+
+      {/* Emoji display for large visual impact */}
+      {isEmoji && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="text-4xl sm:text-5xl filter drop-shadow-lg">
+            {tile.imageUri}
+          </span>
+        </div>
       )}
       
       {/* Text Label with better contrast */}
@@ -67,7 +81,8 @@ export const Tile: React.FC<TileProps> = ({
         <span 
           className={cn(
             "font-semibold text-center leading-tight break-words relative z-10",
-            tile.imageUri ? "text-white drop-shadow-lg" : ""
+            isImageUrl ? "text-white drop-shadow-lg" : "text-foreground",
+            isEmoji ? "text-xs sm:text-sm" : "text-sm sm:text-base"
           )}
           dir={textDirection}
         >
@@ -85,7 +100,10 @@ export const Tile: React.FC<TileProps> = ({
       {/* Variants indicator */}
       {tile.variants && tile.variants.length > 1 && (
         <div className="absolute bottom-1 right-1 z-20">
-          <span className="text-white/90 text-xs drop-shadow-lg">•••</span>
+          <span className={cn(
+            "text-xs drop-shadow-lg",
+            isImageUrl ? "text-white/90" : "text-muted-foreground"
+          )}>•••</span>
         </div>
       )}
       
