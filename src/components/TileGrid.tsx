@@ -90,73 +90,139 @@ export const TileGrid: React.FC<TileGridProps> = ({
 
   return (
     <div className={cn('flex flex-col h-full', className)}>
-      {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-border">
-        <div className="flex items-center gap-3">
-          <Button
-            variant="ghost"
-            size="sm" 
-            onClick={onBack}
-            className="btn-touch"
-            aria-label="Go back to categories"
-          >
-            <ArrowLeft className="w-5 h-5" />
-          </Button>
-          
-          <div className="flex items-center gap-2">
-            <span className="text-2xl">{category.icon || '📁'}</span>
-            <h1 
-              className="text-xl font-bold text-foreground"
-              dir={getTextDirection(preferences.language)}
+      {/* Header - Mobile Responsive */}
+      <div className="border-b border-border">
+        {/* Top Row - Always visible */}
+        <div className="flex items-center justify-between p-3 sm:p-4">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+            <Button
+              variant="ghost"
+              size="sm" 
+              onClick={onBack}
+              className="btn-touch flex-shrink-0 p-2"
+              aria-label="Go back to categories"
             >
-              {getCategoryName(category, preferences.language)}
-            </h1>
+              <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+            </Button>
+            
+            <div className="flex items-center gap-2 min-w-0 flex-1">
+              <span className="text-lg sm:text-2xl flex-shrink-0">{category.icon || '📁'}</span>
+              <h1 
+                className="text-base sm:text-xl font-bold text-foreground truncate"
+                dir={getTextDirection(preferences.language)}
+              >
+                {getCategoryName(category, preferences.language)}
+              </h1>
+            </div>
+          </div>
+          
+          {/* Mobile: Only essential buttons */}
+          <div className="flex items-center gap-1 sm:hidden">
+            {/* Search toggle for mobile */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setSearchQuery(searchQuery ? '' : 'search')}
+              className="btn-touch p-2"
+            >
+              <Search className="w-4 h-4" />
+            </Button>
+            
+            {/* Settings button */}
+            <Button
+              variant={preferences.caregiverMode ? "default" : "ghost"}
+              size="sm"
+              onClick={handleToggleCaregiverMode}
+              className={cn(
+                "btn-touch p-2",
+                preferences.caregiverMode && "bg-primary text-primary-foreground"
+              )}
+              aria-label={`${preferences.caregiverMode ? 'Disable' : 'Enable'} caregiver mode`}
+            >
+              <Settings className="w-4 h-4" />
+              {preferences.caregiverMode && (
+                <div className="w-2 h-2 bg-success rounded-full absolute -top-1 -right-1" />
+              )}
+            </Button>
+          </div>
+
+          {/* Desktop: All controls */}
+          <div className="hidden sm:flex items-center gap-2">
+            {/* Language Selector */}
+            <LanguageSelector />
+            
+            {/* Add Tile Button - Only visible in caregiver mode */}
+            {preferences.caregiverMode && (
+              <Button
+                onClick={() => setShowAddModal(true)}
+                className="btn-touch bg-success text-success-foreground hover:bg-success/90"
+                size="sm"
+              >
+                <Plus className="w-4 h-4" />
+                <span className="ml-1 hidden lg:inline">{getUIText('addTile', preferences.language)}</span>
+              </Button>
+            )}
+            
+            {/* Search */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input
+                placeholder={getUIText('searchTiles', preferences.language)}
+                value={searchQuery}
+                onChange={handleSearchChange}
+                className="pl-10 w-32 md:w-40 lg:w-48"
+              />
+            </div>
+            
+            {/* Settings - Toggle Caregiver Mode */}
+            <Button
+              variant={preferences.caregiverMode ? "default" : "ghost"}
+              size="sm"
+              onClick={handleToggleCaregiverMode}
+              className={cn(
+                "btn-touch",
+                preferences.caregiverMode && "bg-primary text-primary-foreground"
+              )}
+              aria-label={`${preferences.caregiverMode ? 'Disable' : 'Enable'} caregiver mode`}
+            >
+              <Settings className="w-5 h-5" />
+              {preferences.caregiverMode && (
+                <span className="ml-2 text-xs font-medium hidden lg:inline">{getUIText('on', preferences.language)}</span>
+              )}
+            </Button>
           </div>
         </div>
-        
-        <div className="flex items-center gap-2">
-          {/* Language Selector */}
-          <LanguageSelector />
-          
-          {/* Add Tile Button - Only visible in caregiver mode */}
-          {preferences.caregiverMode && (
-            <Button
-              onClick={() => setShowAddModal(true)}
-              className="btn-touch bg-success text-success-foreground hover:bg-success/90"
-              size="sm"
-            >
-              <Plus className="w-4 h-4" />
-              <span className="ml-1 hidden sm:inline">{getUIText('addTile', preferences.language)}</span>
-            </Button>
-          )}
-          
-          {/* Search */}
+
+        {/* Mobile: Second row with expanded controls */}
+        <div className="sm:hidden border-t border-border/50 p-2 space-y-2">
+          {/* Search bar - always visible on mobile */}
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
               placeholder={getUIText('searchTiles', preferences.language)}
               value={searchQuery}
               onChange={handleSearchChange}
-              className="pl-10 w-40 sm:w-48"
+              className="pl-10 w-full"
             />
           </div>
           
-          {/* Settings - Toggle Caregiver Mode */}
-          <Button
-            variant={preferences.caregiverMode ? "default" : "ghost"}
-            size="sm"
-            onClick={handleToggleCaregiverMode}
-            className={cn(
-              "btn-touch",
-              preferences.caregiverMode && "bg-primary text-primary-foreground"
-            )}
-            aria-label={`${preferences.caregiverMode ? 'Disable' : 'Enable'} caregiver mode`}
-          >
-            <Settings className="w-5 h-5" />
+          {/* Mobile controls row */}
+          <div className="flex items-center justify-between">
+            {/* Language Selector */}
+            <LanguageSelector />
+            
+            {/* Add Tile Button - Only visible in caregiver mode */}
             {preferences.caregiverMode && (
-              <span className="ml-2 text-xs font-medium">{getUIText('on', preferences.language)}</span>
+              <Button
+                onClick={() => setShowAddModal(true)}
+                className="btn-touch bg-success text-success-foreground hover:bg-success/90"
+                size="sm"
+              >
+                <Plus className="w-4 h-4" />
+                <span className="ml-1">{getUIText('addTile', preferences.language)}</span>
+              </Button>
             )}
-          </Button>
+          </div>
         </div>
       </div>
 
