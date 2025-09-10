@@ -315,6 +315,7 @@ export const seedData = {
       categoryId: 'people',
       type: 'noun',
       order: 2,
+      imageUri: '👧',
       translations: {
         en: 'sister',
         ru: 'сестра',
@@ -327,6 +328,7 @@ export const seedData = {
       categoryId: 'people',
       type: 'noun',
       order: 3,
+      imageUri: '👦',
       translations: {
         en: 'brother',
         ru: 'брат',
@@ -339,6 +341,7 @@ export const seedData = {
       categoryId: 'people',
       type: 'noun',
       order: 4,
+      imageUri: '👩‍🏫',
       translations: {
         en: 'teacher',
         ru: 'учитель',
@@ -351,6 +354,7 @@ export const seedData = {
       categoryId: 'people',
       type: 'noun',
       order: 5,
+      imageUri: '🧑‍🤝‍🧑',
       translations: {
         en: 'friend',
         ru: 'друг',
@@ -417,6 +421,7 @@ export const seedData = {
       categoryId: 'actions',
       type: 'verb',
       order: 4,
+      imageUri: '🪑',
       translations: {
         en: 'sit',
         ru: 'сидеть',
@@ -429,6 +434,7 @@ export const seedData = {
       categoryId: 'actions',
       type: 'verb',
       order: 5,
+      imageUri: '🚶',
       translations: {
         en: 'walk',
         ru: 'ходить',
@@ -441,6 +447,7 @@ export const seedData = {
       categoryId: 'actions',
       type: 'verb',
       order: 6,
+      imageUri: '🏃',
       translations: {
         en: 'run',
         ru: 'бегать',
@@ -453,6 +460,7 @@ export const seedData = {
       categoryId: 'actions',
       type: 'verb',
       order: 7,
+      imageUri: '👀',
       translations: {
         en: 'look',
         ru: 'смотреть',
@@ -480,6 +488,7 @@ export const seedData = {
       categoryId: 'food',
       type: 'noun',
       order: 1,
+      imageUri: '🥛',
       translations: {
         en: 'milk',
         ru: 'молоко',
@@ -492,6 +501,7 @@ export const seedData = {
       categoryId: 'food',
       type: 'noun',
       order: 2,
+      imageUri: '🧃',
       translations: {
         en: 'juice',
         ru: 'сок',

@@ -50,23 +50,25 @@ export const Tile: React.FC<TileProps> = ({
         className
       )}
       aria-label={`${tile.label} tile`}
+      style={{
+        backgroundImage: tile.imageUri ? `url(${tile.imageUri})` : 'none',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
     >
-      {/* Image */}
+      {/* Background overlay for text readability */}
       {tile.imageUri && (
-        <div className="flex-shrink-0">
-          <img
-            src={tile.imageUri}
-            alt={tile.label}
-            className="w-8 h-8 object-cover rounded"
-            loading="lazy"
-          />
-        </div>
+        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
       )}
       
-      {/* Text Label */}
+      {/* Text Label with better contrast */}
       {showText && (
         <span 
-          className="font-semibold text-center leading-tight break-words"
+          className={cn(
+            "font-semibold text-center leading-tight break-words relative z-10",
+            tile.imageUri ? "text-white drop-shadow-lg" : ""
+          )}
           dir={textDirection}
         >
           {displayText}
@@ -75,20 +77,20 @@ export const Tile: React.FC<TileProps> = ({
       
       {/* Favorite indicator */}
       {tile.isFavorite && (
-        <div className="absolute top-1 right-1">
-          <span className="text-yellow-300 text-sm">⭐</span>
+        <div className="absolute top-1 right-1 z-20">
+          <span className="text-yellow-300 text-sm drop-shadow-lg">⭐</span>
         </div>
       )}
       
       {/* Variants indicator */}
       {tile.variants && tile.variants.length > 1 && (
-        <div className="absolute bottom-1 right-1">
-          <span className="text-white/70 text-xs">•••</span>
+        <div className="absolute bottom-1 right-1 z-20">
+          <span className="text-white/90 text-xs drop-shadow-lg">•••</span>
         </div>
       )}
       
       {/* Ripple effect */}
-      <div className="absolute inset-0 bg-white/20 opacity-0 group-active:opacity-100 transition-opacity duration-fast rounded-xl" />
+      <div className="absolute inset-0 bg-white/20 opacity-0 group-active:opacity-100 transition-opacity duration-fast rounded-xl z-10" />
     </button>
   );
 };
