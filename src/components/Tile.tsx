@@ -24,6 +24,9 @@ export const Tile: React.FC<TileProps> = ({
   const displayText = getTileText(tile, preferences.language);
   const textDirection = getTextDirection(preferences.language);
 
+  // Only show text in caregiver mode or when explicitly requested
+  const shouldShowText = showText && preferences.caregiverMode;
+
   const isEmoji = tile.imageUri && !tile.imageUri.startsWith('http') && !tile.imageUri.startsWith('/');
   const isImageUrl = tile.imageUri && (tile.imageUri.startsWith('http') || tile.imageUri.startsWith('/'));
 
@@ -63,21 +66,24 @@ export const Tile: React.FC<TileProps> = ({
       }
     >
       {/* Background overlay for text readability - only for image backgrounds */}
-      {isImageUrl && (
+      {isImageUrl && shouldShowText && (
         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
       )}
 
       {/* Emoji display for large visual impact */}
       {isEmoji && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-4xl sm:text-5xl filter drop-shadow-lg">
+          <span className={cn(
+            "filter drop-shadow-lg",
+            shouldShowText ? "text-4xl sm:text-5xl" : "text-5xl sm:text-6xl"
+          )}>
             {tile.imageUri}
           </span>
         </div>
       )}
       
-      {/* Text Label with better contrast */}
-      {showText && (
+      {/* Text Label - only shown in caregiver mode */}
+      {shouldShowText && (
         <span 
           className={cn(
             "font-semibold text-center leading-tight break-words relative z-10",
