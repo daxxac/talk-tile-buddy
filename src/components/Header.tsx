@@ -1,6 +1,6 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
-import logo from '@/assets/logo.png';
+import logo from '@/assets/logo.svg';
 import signature from '@/assets/daxxac-signature.webp';
 
 interface HeaderProps {
