@@ -7,13 +7,20 @@ interface AppInitializerProps {
 }
 
 export const AppInitializer: React.FC<AppInitializerProps> = ({ children }) => {
-  const { categories, tiles, resetToSeedData, setHighContrast, preferences } = useStore();
+  const { categories, tiles, resetToSeedData, forceReloadWithTranslations, setHighContrast, preferences } = useStore();
   const [isInitialized, setIsInitialized] = React.useState(false);
 
   React.useEffect(() => {
     // Initialize with seed data if no data exists
     if (categories.length === 0 && tiles.length === 0) {
       resetToSeedData();
+    } else {
+      // Check if existing tiles have translations, if not, force reload
+      const firstTile = tiles[0];
+      if (firstTile && !firstTile.translations) {
+        console.log('Existing tiles missing translations, forcing reload...');
+        forceReloadWithTranslations();
+      }
     }
     
     // Apply high contrast setting
@@ -22,7 +29,7 @@ export const AppInitializer: React.FC<AppInitializerProps> = ({ children }) => {
     }
     
     setIsInitialized(true);
-  }, [categories.length, tiles.length, resetToSeedData, preferences.highContrast]);
+  }, [categories.length, tiles.length, resetToSeedData, forceReloadWithTranslations, preferences.highContrast]);
 
   if (!isInitialized) {
     return (

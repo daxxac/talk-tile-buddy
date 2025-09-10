@@ -33,6 +33,7 @@ interface StoreActions {
   exportData: () => string;
   importData: (jsonData: string) => Promise<void>;
   resetToSeedData: () => void;
+  forceReloadWithTranslations: () => void;
   
   // UI state
   setLoading: (loading: boolean) => void;
@@ -246,6 +247,23 @@ export const useStore = create<Store>()(
           preferences: currentPreferences, // Keep user preferences
           sentence: [],
         });
+      },
+
+      // Force reload seed data with translations (for fixing existing installs)
+      forceReloadWithTranslations: () => {
+        const currentPreferences = get().preferences;
+        const currentSentence = get().sentence;
+        
+        // Force reload tiles with translations
+        set({
+          categories: seedData.categories,
+          tiles: seedData.tiles,
+          preferences: currentPreferences,
+          sentence: currentSentence,
+        });
+        
+        console.log('Forced reload with translations. First tile:', seedData.tiles[0]);
+        console.log('Translations in first tile:', seedData.tiles[0]?.translations);
       },
 
       // UI state
