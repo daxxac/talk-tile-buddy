@@ -4,6 +4,7 @@ import { CategoryGrid } from '@/components/CategoryGrid';
 import { TileGrid } from '@/components/TileGrid';
 import { AppInitializer } from '@/components/AppInitializer';
 import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 import { Category, Tile } from '@/types';
 import { useStore } from '@/store/useStore';
 import { cn } from '@/lib/utils';
@@ -55,6 +56,9 @@ const Index = () => {
             <CategoryGrid onCategorySelect={handleCategorySelect} />
           )}
         </div>
+
+        {/* Footer */}
+        <Footer />
       </div>
     </AppInitializer>
   );
