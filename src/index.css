@@ -2,41 +2,100 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* PECS AAC App Design System - Accessible, warm, touch-friendly */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core background and text */
+    --background: 210 20% 98%;
+    --foreground: 220 15% 15%;
 
+    /* Card backgrounds */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 15% 15%;
 
+    /* Popover backgrounds */
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 220 15% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Warm Blue for main actions */
+    --primary: 210 85% 50%;
+    --primary-foreground: 0 0% 98%;
+    --primary-hover: 210 85% 45%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Soft Gray */
+    --secondary: 210 15% 92%;
+    --secondary-foreground: 220 15% 25%;
+    --secondary-hover: 210 15% 88%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted areas */
+    --muted: 210 15% 94%;
+    --muted-foreground: 220 10% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Warm Orange for highlights */
+    --accent: 25 85% 55%;
+    --accent-foreground: 0 0% 98%;
+    --accent-hover: 25 85% 50%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Destructive - Accessible red */
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Borders and inputs */
+    --border: 210 20% 85%;
+    --input: 210 20% 90%;
+    --ring: 210 85% 50%;
 
-    --radius: 0.5rem;
+    /* Success - Green for positive actions */
+    --success: 145 70% 45%;
+    --success-foreground: 0 0% 98%;
+
+    /* Warning - Amber */
+    --warning: 45 85% 55%;
+    --warning-foreground: 0 0% 98%;
+
+    /* AAC-specific colors */
+    --tile-core: 210 85% 50%;          /* Core words - blue */
+    --tile-noun: 145 70% 45%;          /* Nouns - green */
+    --tile-verb: 25 85% 55%;           /* Verbs - orange */
+    --tile-adjective: 280 85% 55%;     /* Adjectives - purple */
+    --tile-pronoun: 340 85% 55%;       /* Pronouns - pink */
+    --tile-phrase: 60 85% 50%;         /* Phrases - yellow-green */
+
+    /* Sentence strip */
+    --sentence-strip: 210 25% 96%;
+    --sentence-strip-border: 210 25% 85%;
+
+    /* Touch targets and spacing */
+    --touch-target: 88px;   /* Minimum 88pt touch targets */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+
+    /* Typography */
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 1.875rem;
+    --font-size-tile: 1.125rem;      /* 18sp minimum for tiles */
+
+    /* Shadows and elevation */
+    --shadow-sm: 0 1px 2px 0 hsl(220 15% 15% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(220 15% 15% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(220 15% 15% / 0.1);
+    --shadow-tile: 0 2px 8px 0 hsl(220 15% 15% / 0.12);
+
+    /* Animations */
+    --transition-fast: 150ms ease-out;
+    --transition-base: 250ms ease-out;
+    --transition-slow: 350ms ease-out;
+
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -55,9 +114,27 @@ All colors MUST be HSL.
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
+  /* High contrast mode for accessibility */
+  .high-contrast {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --primary: 240 100% 25%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 90%;
+    --secondary-foreground: 0 0% 10%;
+    --border: 0 0% 20%;
+    --tile-core: 240 100% 25%;
+    --tile-noun: 120 100% 25%;
+    --tile-verb: 30 100% 25%;
+    --tile-adjective: 270 100% 25%;
+    --tile-pronoun: 330 100% 25%;
+    --tile-phrase: 60 100% 25%;
+  }
+
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Dark mode - keeping original for consistency */
+    --background: 220 15% 8%;
+    --foreground: 210 20% 92%;
 
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
@@ -101,5 +178,66 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  /* AAC Tile base styles */
+  .tile-base {
+    @apply min-h-[88px] min-w-[88px] rounded-xl border-2 border-border 
+           bg-card text-card-foreground shadow-[var(--shadow-tile)]
+           transition-all duration-[var(--transition-fast)]
+           touch-manipulation select-none cursor-pointer
+           flex flex-col items-center justify-center gap-2 p-3
+           active:scale-95 hover:shadow-lg;
+  }
+
+  /* Tile type variants */
+  .tile-core {
+    @apply bg-[hsl(var(--tile-core))] text-white border-[hsl(var(--tile-core))];
+  }
+  
+  .tile-noun {
+    @apply bg-[hsl(var(--tile-noun))] text-white border-[hsl(var(--tile-noun))];
+  }
+  
+  .tile-verb {
+    @apply bg-[hsl(var(--tile-verb))] text-white border-[hsl(var(--tile-verb))];
+  }
+  
+  .tile-adjective {
+    @apply bg-[hsl(var(--tile-adjective))] text-white border-[hsl(var(--tile-adjective))];
+  }
+  
+  .tile-pronoun {
+    @apply bg-[hsl(var(--tile-pronoun))] text-white border-[hsl(var(--tile-pronoun))];
+  }
+  
+  .tile-phrase {
+    @apply bg-[hsl(var(--tile-phrase))] text-white border-[hsl(var(--tile-phrase))];
+  }
+
+  /* Sentence strip */
+  .sentence-strip {
+    @apply bg-[hsl(var(--sentence-strip))] border-[hsl(var(--sentence-strip-border))]
+           border-2 rounded-xl p-4 min-h-[100px] 
+           shadow-[var(--shadow-md)];
+  }
+
+  /* Touch-friendly button base */
+  .btn-touch {
+    @apply min-h-[var(--touch-target)] min-w-[var(--touch-target)]
+           touch-manipulation select-none cursor-pointer
+           transition-all duration-[var(--transition-fast)]
+           active:scale-95;
+  }
+
+  /* High contrast utilities */
+  .high-contrast .tile-base {
+    @apply border-4;
+  }
+  
+  .high-contrast .btn-touch {
+    @apply border-4 border-foreground;
   }
 }

@@ -1,13 +1,58 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import React from 'react';
+import { SentenceStrip } from '@/components/SentenceStrip';
+import { CategoryGrid } from '@/components/CategoryGrid';
+import { TileGrid } from '@/components/TileGrid';
+import { AppInitializer } from '@/components/AppInitializer';
+import { Category, Tile } from '@/types';
+import { useStore } from '@/store/useStore';
+import { cn } from '@/lib/utils';
 
 const Index = () => {
+  const { addToSentence, preferences } = useStore();
+  const [selectedCategory, setSelectedCategory] = React.useState<Category | null>(null);
+
+  const handleCategorySelect = (category: Category) => {
+    setSelectedCategory(category);
+  };
+
+  const handleBack = () => {
+    setSelectedCategory(null);
+  };
+
+  const handleTileClick = (tile: Tile) => {
+    addToSentence(tile);
+    
+    // Haptic feedback
+    if (preferences.vibration && navigator.vibrate) {
+      navigator.vibrate(50);
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <AppInitializer>
+      <div className={cn(
+        'flex flex-col h-screen bg-background text-foreground',
+        preferences.highContrast && 'high-contrast'
+      )}>
+        {/* Sentence Strip - Always visible at top */}
+        <div className="flex-shrink-0 p-4 border-b border-border">
+          <SentenceStrip />
+        </div>
+
+        {/* Main Content Area */}
+        <div className="flex-1 overflow-hidden">
+          {selectedCategory ? (
+            <TileGrid
+              category={selectedCategory}
+              onBack={handleBack}
+              onTileClick={handleTileClick}
+            />
+          ) : (
+            <CategoryGrid onCategorySelect={handleCategorySelect} />
+          )}
+        </div>
       </div>
-    </div>
+    </AppInitializer>
   );
 };
 
