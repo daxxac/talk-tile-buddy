@@ -32,23 +32,87 @@ export const SentenceStrip: React.FC<SentenceStripProps> = ({ className }) => {
           return item.ttsOverride || item.label;
         })
         .join(' ');
+
+      console.log(`Sentence TTS: Speaking "${text}" in ${preferences.language}`);
       
-      // Use the enhanced TTS system with proper language configuration
-      await speak(text, {
-        language: preferences.language,
-        rate: 0.85,
-        pitch: 1.0,
-        volume: 1.0
-      });
+      // Use direct speechSynthesis API (same as individual cards)
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel(); // Cancel any existing speech
+        
+        const utterance = new SpeechSynthesisUtterance(text);
+        
+        // Map language to proper locale for TTS
+        const languageMap: Record<string, string> = {
+          'en': 'en-US',
+          'ru': 'ru-RU', 
+          'he': 'he-IL'
+        };
+        
+        const targetLanguage = languageMap[preferences.language] || 'en-US';
+        utterance.lang = targetLanguage;
+        
+        // Find best voice for the language
+        const voices = window.speechSynthesis.getVoices();
+        let selectedVoice = voices.find(voice => 
+          voice.lang.toLowerCase().startsWith(preferences.language.toLowerCase())
+        );
+        
+        // If no specific language voice, try locale variants
+        if (!selectedVoice && preferences.language === 'ru') {
+          selectedVoice = voices.find(voice => 
+            voice.lang.toLowerCase().includes('ru')
+          );
+        } else if (!selectedVoice && preferences.language === 'he') {
+          selectedVoice = voices.find(voice => 
+            voice.lang.toLowerCase().includes('he') || voice.lang.toLowerCase().includes('iw')
+          );
+        }
+        
+        // Fallback to default system voice
+        if (!selectedVoice) {
+          selectedVoice = voices.find(voice => voice.default) || voices[0];
+        }
+        
+        if (selectedVoice) {
+          utterance.voice = selectedVoice;
+          console.log(`Sentence TTS: Using voice: ${selectedVoice.name} (${selectedVoice.lang})`);
+        }
+        
+        utterance.rate = 0.85;
+        utterance.volume = 0.9;
+        utterance.pitch = 1.0;
+        
+        // Set up event handlers
+        utterance.onstart = () => {
+          console.log('Sentence TTS: Speech started');
+        };
+
+        utterance.onend = () => {
+          console.log('Sentence TTS: Speech ended');
+          setIsSpeaking(false);
+        };
+
+        utterance.onerror = (event) => {
+          console.error('Sentence TTS: Error:', event.error);
+          setIsSpeaking(false);
+        };
+        
+        window.speechSynthesis.speak(utterance);
+      } else {
+        console.warn('Speech synthesis not supported');
+        setIsSpeaking(false);
+      }
     } catch (error) {
       console.error('TTS error:', error);
-    } finally {
       setIsSpeaking(false);
     }
   };
 
   const handleStop = () => {
-    stopSpeaking();
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      console.log('Sentence TTS: Stopped manually');
+    }
     setIsSpeaking(false);
   };
 
