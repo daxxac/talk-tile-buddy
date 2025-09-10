@@ -254,7 +254,10 @@ export const useStore = create<Store>()(
         const currentPreferences = get().preferences;
         const currentSentence = get().sentence;
         
-        // Force reload tiles with translations
+        // Clear localStorage to force fresh data
+        localStorage.removeItem('pecs-aac-storage');
+        
+        // Force reload tiles with translations and images
         set({
           categories: seedData.categories,
           tiles: seedData.tiles,
@@ -262,8 +265,8 @@ export const useStore = create<Store>()(
           sentence: currentSentence,
         });
         
-        console.log('Forced reload with translations. First tile:', seedData.tiles[0]);
-        console.log('Translations in first tile:', seedData.tiles[0]?.translations);
+        console.log('Forced complete reload with fresh seed data');
+        console.log('First tile after reload:', seedData.tiles[0]);
       },
 
       // UI state

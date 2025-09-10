@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Tile } from '@/components/Tile';
 import { AddTileModal } from '@/components/AddTileModal';
 import { LanguageSelector } from '@/components/LanguageSelector';
+import { DataRefreshButton } from '@/components/DataRefreshButton';
 import { Category, Tile as TileType } from '@/types';
 import { cn, debounce } from '@/lib/utils';
 import { useStore } from '@/store/useStore';
@@ -153,6 +154,9 @@ export const TileGrid: React.FC<TileGridProps> = ({
 
           {/* Desktop: All controls */}
           <div className="hidden sm:flex items-center gap-2">
+            {/* Data Refresh Button - temporary for loading new images */}
+            <DataRefreshButton />
+            
             {/* Language Selector */}
             <LanguageSelector />
             
