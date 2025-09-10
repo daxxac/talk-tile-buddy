@@ -102,66 +102,100 @@ class TTSManager {
       const utterance = new SpeechSynthesisUtterance(text);
       
       // Map language codes to proper locale codes
-      const languageMap: Record<string, string> = {
-        'en': 'en-US',
-        'ru': 'ru-RU',
-        'he': 'he-IL'
+      const languageMap: Record<string, string[]> = {
+        'en': ['en-US', 'en-GB', 'en'],
+        'ru': ['ru-RU', 'ru'],
+        'he': ['he-IL', 'he', 'iw-IL', 'iw']
       };
       
-      const targetLanguage = options.language ? (languageMap[options.language] || options.language) : 'en-US';
+      const requestedLang = options.language || 'en';
+      const targetLanguages = languageMap[requestedLang] || [requestedLang];
       
-      // Set voice
-      if (options.voice) {
-        utterance.voice = options.voice;
-      } else {
-        const defaultVoice = this.getDefaultVoice(options.language || 'en');
-        if (defaultVoice) {
-          utterance.voice = defaultVoice;
+      console.log('TTS: Requested language:', requestedLang);
+      console.log('TTS: Available voices:', this.voices.map(v => `${v.name} (${v.lang})`));
+      
+      // Find best voice for the language
+      let selectedVoice: SpeechSynthesisVoice | null = null;
+      
+      for (const lang of targetLanguages) {
+        const matchingVoices = this.voices.filter(voice => 
+          voice.lang.toLowerCase().includes(lang.toLowerCase())
+        );
+        
+        if (matchingVoices.length > 0) {
+          // Prefer local voices first
+          selectedVoice = matchingVoices.find(v => v.localService) || matchingVoices[0];
+          console.log('TTS: Selected voice:', selectedVoice.name, selectedVoice.lang);
+          break;
         }
+      }
+      
+      // If no voice found for language, warn but continue with default
+      if (!selectedVoice) {
+        console.warn(`TTS: No voice found for language ${requestedLang}, using default`);
+        selectedVoice = this.voices.find(v => v.default) || this.voices[0] || null;
+      }
+      
+      if (selectedVoice) {
+        utterance.voice = selectedVoice;
+        utterance.lang = selectedVoice.lang;
+      } else {
+        // Use the requested language even without specific voice
+        utterance.lang = targetLanguages[0];
       }
 
       // Set other options
-      utterance.rate = options.rate ?? 0.9; // Slightly slower for better clarity
+      utterance.rate = options.rate ?? 0.8; // Slower for better pronunciation
       utterance.pitch = options.pitch ?? 1.0;
       utterance.volume = options.volume ?? 1.0;
-      
-      // Set language with proper locale
-      utterance.lang = targetLanguage;
+
+      console.log('TTS: Speaking text:', text, 'in language:', utterance.lang);
 
       // Set up event handlers
-      utterance.onend = () => resolve();
+      const cleanup = () => {
+        clearTimeout(timeout);
+      };
+
+      utterance.onstart = () => {
+        console.log('TTS: Started speaking');
+      };
+
+      utterance.onend = () => {
+        console.log('TTS: Finished speaking');
+        cleanup();
+        resolve();
+      };
+      
       utterance.onerror = (event) => {
-        console.error('TTS Error:', event);
-        // Don't reject, just resolve to prevent blocking
+        console.error('TTS Error:', event.error, event);
+        cleanup();
+        // Don't reject - just resolve to prevent blocking
         resolve();
       };
 
       // Add timeout as fallback
       const timeout = setTimeout(() => {
+        console.warn('TTS: Timeout reached, cancelling');
         this.synth.cancel();
         resolve();
-      }, 30000); // 30 second timeout
-
-      utterance.onend = () => {
-        clearTimeout(timeout);
-        resolve();
-      };
+      }, 30000);
 
       // Speak with retry mechanism
       try {
         this.synth.speak(utterance);
         
-        // Force start speaking if it doesn't start within 100ms (browser bug workaround)
+        // Force start speaking if it doesn't start within 200ms (browser bug workaround)
         setTimeout(() => {
           if (!this.synth.speaking && !this.synth.pending) {
+            console.log('TTS: Retrying speech...');
             this.synth.cancel();
             this.synth.speak(utterance);
           }
-        }, 100);
+        }, 200);
       } catch (error) {
-        clearTimeout(timeout);
+        cleanup();
         console.error('TTS Speak Error:', error);
-        resolve(); // Don't reject, just resolve
+        resolve();
       }
     });
   }
