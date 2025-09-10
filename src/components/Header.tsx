@@ -1,6 +1,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import logo from '@/assets/logo.png';
+import signature from '@/assets/daxxac-signature.png';
 
 interface HeaderProps {
   className?: string;
@@ -22,9 +23,11 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
           <h1 className="text-xl font-comfortaa font-semibold text-primary">
             TalkTileBuddy
           </h1>
-          <span className="text-sm font-caveat text-muted-foreground/70 -mb-1">
-            by DAXXAC
-          </span>
+          <img 
+            src={signature} 
+            alt="by DAXXAC" 
+            className="h-4 object-contain opacity-60"
+          />
         </div>
       </div>
     </header>
