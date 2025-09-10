@@ -26,7 +26,7 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
           <img 
             src={signature} 
             alt="by DAXXAC" 
-            className="h-4 object-contain opacity-60"
+            className="h-4 object-contain opacity-60 mix-blend-multiply dark:mix-blend-screen"
           />
         </div>
       </div>
