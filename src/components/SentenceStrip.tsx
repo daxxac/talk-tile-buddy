@@ -120,11 +120,20 @@ export const SentenceStrip: React.FC<SentenceStripProps> = ({ className }) => {
             >
               {/* Image */}
               {item.imageUri && (
-                <img
-                  src={item.imageUri}
-                  alt={item.label}
-                  className="w-6 h-6 object-cover rounded"
-                />
+                <>
+                  {/* Check if it's an emoji or image URL */}
+                  {!item.imageUri.startsWith('http') && !item.imageUri.startsWith('/') ? (
+                    <span className="text-lg filter drop-shadow-sm">
+                      {item.imageUri}
+                    </span>
+                  ) : (
+                    <img
+                      src={item.imageUri}
+                      alt={item.label}
+                      className="w-6 h-6 object-cover rounded"
+                    />
+                  )}
+                </>
               )}
               
               {/* Text */}

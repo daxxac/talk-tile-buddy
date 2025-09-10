@@ -1,18 +1,74 @@
-import { Category, Tile } from '@/types';
+import { Category, Tile } from '../types';
 
-// Core vocabulary seed data for AAC app
+// Import all kikoriki-style images
+import iImage from '../assets/kikoriki/i.png';
+import youImage from '../assets/kikoriki/you.png';
+import wantImage from '../assets/kikoriki/want.png';
+import haveImage from '../assets/kikoriki/have.png';
+import goImage from '../assets/kikoriki/go.png';
+import moreImage from '../assets/kikoriki/more.png';
+import stopImage from '../assets/kikoriki/stop.png';
+import helpImage from '../assets/kikoriki/help.png';
+import yesImage from '../assets/kikoriki/yes.png';
+import noImage from '../assets/kikoriki/no.png';
+import likeImage from '../assets/kikoriki/like.png';
+import thisImage from '../assets/kikoriki/this.png';
+import thatImage from '../assets/kikoriki/that.png';
+import momImage from '../assets/kikoriki/mom.png';
+import dadImage from '../assets/kikoriki/dad.png';
+import sisterImage from '../assets/kikoriki/sister.png';
+import brotherImage from '../assets/kikoriki/brother.png';
+import teacherImage from '../assets/kikoriki/teacher.png';
+import friendImage from '../assets/kikoriki/friend.png';
+import eatImage from '../assets/kikoriki/eat.png';
+import drinkImage from '../assets/kikoriki/drink.png';
+import playImage from '../assets/kikoriki/play.png';
+import sleepImage from '../assets/kikoriki/sleep.png';
+import sitImage from '../assets/kikoriki/sit.png';
+import walkImage from '../assets/kikoriki/walk.png';
+import runImage from '../assets/kikoriki/run.png';
+import lookImage from '../assets/kikoriki/look.png';
+import waterImage from '../assets/kikoriki/water.png';
+import milkImage from '../assets/kikoriki/milk.png';
+import juiceImage from '../assets/kikoriki/juice.png';
+import appleImage from '../assets/kikoriki/apple.png';
+import bananaImage from '../assets/kikoriki/banana.png';
+import breadImage from '../assets/kikoriki/bread.png';
+import cookieImage from '../assets/kikoriki/cookie.png';
+import happyImage from '../assets/kikoriki/happy.png';
+import sadImage from '../assets/kikoriki/sad.png';
+import angryImage from '../assets/kikoriki/angry.png';
+import tiredImage from '../assets/kikoriki/tired.png';
+import excitedImage from '../assets/kikoriki/excited.png';
+import homeImage from '../assets/kikoriki/home.png';
+import schoolImage from '../assets/kikoriki/school.png';
+import parkImage from '../assets/kikoriki/park.png';
+import storeImage from '../assets/kikoriki/store.png';
+import carImage from '../assets/kikoriki/car.png';
+import nowImage from '../assets/kikoriki/now.png';
+import laterImage from '../assets/kikoriki/later.png';
+import todayImage from '../assets/kikoriki/today.png';
+import tomorrowImage from '../assets/kikoriki/tomorrow.png';
+import bigImage from '../assets/kikoriki/big.png';
+import littleImage from '../assets/kikoriki/little.png';
+import hotImage from '../assets/kikoriki/hot.png';
+import coldImage from '../assets/kikoriki/cold.png';
+import goodImage from '../assets/kikoriki/good.png';
+import badImage from '../assets/kikoriki/bad.png';
+
+// This will be populated with default categories and tiles for new users
 export const seedData = {
   categories: [
     {
       id: 'core-words',
       name: 'Core Words',
-      icon: '⭐',
+      icon: '💬',
       order: 0,
-      color: 'core',
+      color: 'hsl(220, 100%, 70%)',
       nameTranslations: {
         en: 'Core Words',
-        ru: 'Главные слова',
-        he: 'מילים עיקריות'
+        ru: 'Основные слова',
+        he: 'מילים בסיסיות'
       }
     },
     {
@@ -20,7 +76,7 @@ export const seedData = {
       name: 'People',
       icon: '👥',
       order: 1,
-      color: 'noun',
+      color: 'hsl(340, 80%, 60%)',
       nameTranslations: {
         en: 'People',
         ru: 'Люди',
@@ -32,7 +88,7 @@ export const seedData = {
       name: 'Actions',
       icon: '🏃',
       order: 2,
-      color: 'verb',
+      color: 'hsl(30, 90%, 60%)',
       nameTranslations: {
         en: 'Actions',
         ru: 'Действия',
@@ -44,7 +100,7 @@ export const seedData = {
       name: 'Food & Drink',
       icon: '🍎',
       order: 3,
-      color: 'noun',
+      color: 'hsl(120, 70%, 50%)',
       nameTranslations: {
         en: 'Food & Drink',
         ru: 'Еда и напитки',
@@ -56,7 +112,7 @@ export const seedData = {
       name: 'Feelings',
       icon: '😊',
       order: 4,
-      color: 'adjective',
+      color: 'hsl(280, 80%, 70%)',
       nameTranslations: {
         en: 'Feelings',
         ru: 'Чувства',
@@ -68,7 +124,7 @@ export const seedData = {
       name: 'Places',
       icon: '🏠',
       order: 5,
-      color: 'noun',
+      color: 'hsl(180, 70%, 50%)',
       nameTranslations: {
         en: 'Places',
         ru: 'Места',
@@ -80,7 +136,7 @@ export const seedData = {
       name: 'Time',
       icon: '⏰',
       order: 6,
-      color: 'noun',
+      color: 'hsl(60, 80%, 60%)',
       nameTranslations: {
         en: 'Time',
         ru: 'Время',
@@ -90,9 +146,9 @@ export const seedData = {
     {
       id: 'descriptors',
       name: 'Descriptors',
-      icon: '✨',
+      icon: '📏',
       order: 7,
-      color: 'adjective',
+      color: 'hsl(200, 70%, 60%)',
       nameTranslations: {
         en: 'Descriptors',
         ru: 'Описания',
@@ -100,7 +156,7 @@ export const seedData = {
       }
     }
   ] as Category[],
-
+  
   tiles: [
     // Core Words - Most essential for communication
     {
@@ -110,7 +166,7 @@ export const seedData = {
       type: 'pronoun',
       order: 0,
       variants: ['me', 'myself'],
-      imageUri: '👤',
+      imageUri: iImage,
       translations: {
         en: 'I',
         ru: 'я',
@@ -123,7 +179,7 @@ export const seedData = {
       categoryId: 'core-words',
       type: 'pronoun',
       order: 1,
-      imageUri: '👤',
+      imageUri: youImage,
       translations: {
         en: 'you',
         ru: 'ты',
@@ -137,7 +193,7 @@ export const seedData = {
       type: 'verb',
       order: 2,
       variants: ['want', "don't want", 'need'],
-      imageUri: '🙏',
+      imageUri: wantImage,
       translations: {
         en: 'want',
         ru: 'хочу',
@@ -151,7 +207,7 @@ export const seedData = {
       type: 'verb',
       order: 3,
       variants: ['have', "don't have", 'got'],
-      imageUri: '✋',
+      imageUri: haveImage,
       translations: {
         en: 'have',
         ru: 'есть',
@@ -165,7 +221,7 @@ export const seedData = {
       type: 'verb',
       order: 4,
       variants: ['go', 'come', 'leave'],
-      imageUri: '➡️',
+      imageUri: goImage,
       translations: {
         en: 'go',
         ru: 'идти',
@@ -178,7 +234,7 @@ export const seedData = {
       categoryId: 'core-words',
       type: 'core',
       order: 5,
-      imageUri: '➕',
+      imageUri: moreImage,
       translations: {
         en: 'more',
         ru: 'ещё',
@@ -192,7 +248,7 @@ export const seedData = {
       type: 'core',
       order: 6,
       variants: ['stop', 'no more', 'finished'],
-      imageUri: '✋',
+      imageUri: stopImage,
       translations: {
         en: 'stop',
         ru: 'стоп',
@@ -206,7 +262,7 @@ export const seedData = {
       type: 'core',
       order: 7,
       variants: ['help', 'help me', 'please help'],
-      imageUri: '🆘',
+      imageUri: helpImage,
       translations: {
         en: 'help',
         ru: 'помощь',
@@ -219,7 +275,7 @@ export const seedData = {
       categoryId: 'core-words',
       type: 'core',
       order: 8,
-      imageUri: '✅',
+      imageUri: yesImage,
       translations: {
         en: 'yes',
         ru: 'да',
@@ -232,7 +288,7 @@ export const seedData = {
       categoryId: 'core-words',
       type: 'core',
       order: 9,
-      imageUri: '❌',
+      imageUri: noImage,
       translations: {
         en: 'no',
         ru: 'нет',
@@ -246,7 +302,7 @@ export const seedData = {
       type: 'verb',
       order: 10,
       variants: ['like', "don't like", 'love'],
-      imageUri: '❤️',
+      imageUri: likeImage,
       translations: {
         en: 'like',
         ru: 'нравиться',
@@ -259,7 +315,7 @@ export const seedData = {
       categoryId: 'core-words',
       type: 'core',
       order: 11,
-      imageUri: '👆',
+      imageUri: thisImage,
       translations: {
         en: 'this',
         ru: 'это',
@@ -272,7 +328,7 @@ export const seedData = {
       categoryId: 'core-words',
       type: 'core',
       order: 12,
-      imageUri: '👉',
+      imageUri: thatImage,
       translations: {
         en: 'that',
         ru: 'то',
@@ -288,7 +344,7 @@ export const seedData = {
       type: 'noun',
       order: 0,
       variants: ['mom', 'mommy', 'mother'],
-      imageUri: '👩',
+      imageUri: momImage,
       translations: {
         en: 'mom',
         ru: 'мама',
@@ -302,7 +358,7 @@ export const seedData = {
       type: 'noun',
       order: 1,
       variants: ['dad', 'daddy', 'father'],
-      imageUri: '👨',
+      imageUri: dadImage,
       translations: {
         en: 'dad',
         ru: 'папа',
@@ -315,7 +371,7 @@ export const seedData = {
       categoryId: 'people',
       type: 'noun',
       order: 2,
-      imageUri: '👧',
+      imageUri: sisterImage,
       translations: {
         en: 'sister',
         ru: 'сестра',
@@ -328,7 +384,7 @@ export const seedData = {
       categoryId: 'people',
       type: 'noun',
       order: 3,
-      imageUri: '👦',
+      imageUri: brotherImage,
       translations: {
         en: 'brother',
         ru: 'брат',
@@ -341,7 +397,7 @@ export const seedData = {
       categoryId: 'people',
       type: 'noun',
       order: 4,
-      imageUri: '👩‍🏫',
+      imageUri: teacherImage,
       translations: {
         en: 'teacher',
         ru: 'учитель',
@@ -354,7 +410,7 @@ export const seedData = {
       categoryId: 'people',
       type: 'noun',
       order: 5,
-      imageUri: '🧑‍🤝‍🧑',
+      imageUri: friendImage,
       translations: {
         en: 'friend',
         ru: 'друг',
@@ -369,7 +425,7 @@ export const seedData = {
       categoryId: 'actions',
       type: 'verb',
       order: 0,
-      imageUri: '🍽️',
+      imageUri: eatImage,
       translations: {
         en: 'eat',
         ru: 'есть',
@@ -382,7 +438,7 @@ export const seedData = {
       categoryId: 'actions',
       type: 'verb',
       order: 1,
-      imageUri: '🥤',
+      imageUri: drinkImage,
       translations: {
         en: 'drink',
         ru: 'пить',
@@ -395,7 +451,7 @@ export const seedData = {
       categoryId: 'actions',
       type: 'verb',
       order: 2,
-      imageUri: '🎮',
+      imageUri: playImage,
       translations: {
         en: 'play',
         ru: 'играть',
@@ -408,7 +464,7 @@ export const seedData = {
       categoryId: 'actions',
       type: 'verb',
       order: 3,
-      imageUri: '😴',
+      imageUri: sleepImage,
       translations: {
         en: 'sleep',
         ru: 'спать',
@@ -421,7 +477,7 @@ export const seedData = {
       categoryId: 'actions',
       type: 'verb',
       order: 4,
-      imageUri: '🪑',
+      imageUri: sitImage,
       translations: {
         en: 'sit',
         ru: 'сидеть',
@@ -434,7 +490,7 @@ export const seedData = {
       categoryId: 'actions',
       type: 'verb',
       order: 5,
-      imageUri: '🚶',
+      imageUri: walkImage,
       translations: {
         en: 'walk',
         ru: 'ходить',
@@ -447,7 +503,7 @@ export const seedData = {
       categoryId: 'actions',
       type: 'verb',
       order: 6,
-      imageUri: '🏃',
+      imageUri: runImage,
       translations: {
         en: 'run',
         ru: 'бегать',
@@ -460,7 +516,7 @@ export const seedData = {
       categoryId: 'actions',
       type: 'verb',
       order: 7,
-      imageUri: '👀',
+      imageUri: lookImage,
       translations: {
         en: 'look',
         ru: 'смотреть',
@@ -475,7 +531,7 @@ export const seedData = {
       categoryId: 'food',
       type: 'noun',
       order: 0,
-      imageUri: '💧',
+      imageUri: waterImage,
       translations: {
         en: 'water',
         ru: 'вода',
@@ -488,7 +544,7 @@ export const seedData = {
       categoryId: 'food',
       type: 'noun',
       order: 1,
-      imageUri: '🥛',
+      imageUri: milkImage,
       translations: {
         en: 'milk',
         ru: 'молоко',
@@ -501,7 +557,7 @@ export const seedData = {
       categoryId: 'food',
       type: 'noun',
       order: 2,
-      imageUri: '🧃',
+      imageUri: juiceImage,
       translations: {
         en: 'juice',
         ru: 'сок',
@@ -514,7 +570,7 @@ export const seedData = {
       categoryId: 'food',
       type: 'noun',
       order: 3,
-      imageUri: '🍎',
+      imageUri: appleImage,
       translations: {
         en: 'apple',
         ru: 'яблоко',
@@ -527,7 +583,7 @@ export const seedData = {
       categoryId: 'food',
       type: 'noun',
       order: 4,
-      imageUri: '🍌',
+      imageUri: bananaImage,
       translations: {
         en: 'banana',
         ru: 'банан',
@@ -540,7 +596,7 @@ export const seedData = {
       categoryId: 'food',
       type: 'noun',
       order: 5,
-      imageUri: '🍞',
+      imageUri: breadImage,
       translations: {
         en: 'bread',
         ru: 'хлеб',
@@ -553,7 +609,7 @@ export const seedData = {
       categoryId: 'food',
       type: 'noun',
       order: 6,
-      imageUri: '🍪',
+      imageUri: cookieImage,
       translations: {
         en: 'cookie',
         ru: 'печенье',
@@ -568,7 +624,7 @@ export const seedData = {
       categoryId: 'feelings',
       type: 'adjective',
       order: 0,
-      imageUri: '😊',
+      imageUri: happyImage,
       translations: {
         en: 'happy',
         ru: 'счастливый',
@@ -581,7 +637,7 @@ export const seedData = {
       categoryId: 'feelings',
       type: 'adjective',
       order: 1,
-      imageUri: '😢',
+      imageUri: sadImage,
       translations: {
         en: 'sad',
         ru: 'грустный',
@@ -594,7 +650,7 @@ export const seedData = {
       categoryId: 'feelings',
       type: 'adjective',
       order: 2,
-      imageUri: '😠',
+      imageUri: angryImage,
       translations: {
         en: 'angry',
         ru: 'злой',
@@ -607,7 +663,7 @@ export const seedData = {
       categoryId: 'feelings',
       type: 'adjective',
       order: 3,
-      imageUri: '😴',
+      imageUri: tiredImage,
       translations: {
         en: 'tired',
         ru: 'уставший',
@@ -620,7 +676,7 @@ export const seedData = {
       categoryId: 'feelings',
       type: 'adjective',
       order: 4,
-      imageUri: '😃',
+      imageUri: excitedImage,
       translations: {
         en: 'excited',
         ru: 'взволнованный',
@@ -635,7 +691,7 @@ export const seedData = {
       categoryId: 'places',
       type: 'noun',
       order: 0,
-      imageUri: '🏠',
+      imageUri: homeImage,
       translations: {
         en: 'home',
         ru: 'дом',
@@ -648,7 +704,7 @@ export const seedData = {
       categoryId: 'places',
       type: 'noun',
       order: 1,
-      imageUri: '🏫',
+      imageUri: schoolImage,
       translations: {
         en: 'school',
         ru: 'школа',
@@ -661,7 +717,7 @@ export const seedData = {
       categoryId: 'places',
       type: 'noun',
       order: 2,
-      imageUri: '🏞️',
+      imageUri: parkImage,
       translations: {
         en: 'park',
         ru: 'парк',
@@ -674,7 +730,7 @@ export const seedData = {
       categoryId: 'places',
       type: 'noun',
       order: 3,
-      imageUri: '🏪',
+      imageUri: storeImage,
       translations: {
         en: 'store',
         ru: 'магазин',
@@ -687,7 +743,7 @@ export const seedData = {
       categoryId: 'places',
       type: 'noun',
       order: 4,
-      imageUri: '🚗',
+      imageUri: carImage,
       translations: {
         en: 'car',
         ru: 'машина',
@@ -702,7 +758,7 @@ export const seedData = {
       categoryId: 'time',
       type: 'core',
       order: 0,
-      imageUri: '⏰',
+      imageUri: nowImage,
       translations: {
         en: 'now',
         ru: 'сейчас',
@@ -715,7 +771,7 @@ export const seedData = {
       categoryId: 'time',
       type: 'core',
       order: 1,
-      imageUri: '🕐',
+      imageUri: laterImage,
       translations: {
         en: 'later',
         ru: 'позже',
@@ -728,7 +784,7 @@ export const seedData = {
       categoryId: 'time',
       type: 'noun',
       order: 2,
-      imageUri: '📅',
+      imageUri: todayImage,
       translations: {
         en: 'today',
         ru: 'сегодня',
@@ -741,7 +797,7 @@ export const seedData = {
       categoryId: 'time',
       type: 'noun',
       order: 3,
-      imageUri: '🌅',
+      imageUri: tomorrowImage,
       translations: {
         en: 'tomorrow',
         ru: 'завтра',
@@ -756,7 +812,7 @@ export const seedData = {
       categoryId: 'descriptors',
       type: 'adjective',
       order: 0,
-      imageUri: '📏',
+      imageUri: bigImage,
       translations: {
         en: 'big',
         ru: 'большой',
@@ -769,7 +825,7 @@ export const seedData = {
       categoryId: 'descriptors',
       type: 'adjective',
       order: 1,
-      imageUri: '🤏',
+      imageUri: littleImage,
       translations: {
         en: 'little',
         ru: 'маленький',
@@ -782,7 +838,7 @@ export const seedData = {
       categoryId: 'descriptors',
       type: 'adjective',
       order: 2,
-      imageUri: '🔥',
+      imageUri: hotImage,
       translations: {
         en: 'hot',
         ru: 'горячий',
@@ -795,7 +851,7 @@ export const seedData = {
       categoryId: 'descriptors',
       type: 'adjective',
       order: 3,
-      imageUri: '🧊',
+      imageUri: coldImage,
       translations: {
         en: 'cold',
         ru: 'холодный',
@@ -808,7 +864,7 @@ export const seedData = {
       categoryId: 'descriptors',
       type: 'adjective',
       order: 4,
-      imageUri: '👍',
+      imageUri: goodImage,
       translations: {
         en: 'good',
         ru: 'хороший',
@@ -821,7 +877,7 @@ export const seedData = {
       categoryId: 'descriptors',
       type: 'adjective',
       order: 5,
-      imageUri: '👎',
+      imageUri: badImage,
       translations: {
         en: 'bad',
         ru: 'плохой',
