@@ -44,7 +44,10 @@ export const LANGUAGE_FLAGS = {
  * UI Text translations
  */
 export const UI_TRANSLATIONS = {
-  // Common actions
+  // Sentence building
+  mySentence: { en: 'My Sentence', ru: 'Моё предложение', he: 'המשפט שלי' },
+  tapTilesToBuild: { en: 'Tap tiles to build your sentence', ru: 'Нажимайте на карточки, чтобы составить предложение', he: 'הקש על כרטיסים כדי לבנות את המשפט שלך' },
+  chooseCategory: { en: 'Choose a Category', ru: 'Выберите категорию', he: 'בחר קטגוריה' },
   add: { en: 'Add', ru: 'Добавить', he: 'הוסף' },
   cancel: { en: 'Cancel', ru: 'Отмена', he: 'בטל' },
   clear: { en: 'Clear', ru: 'Очистить', he: 'נקה' },

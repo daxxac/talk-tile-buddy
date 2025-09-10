@@ -2,7 +2,7 @@ import React from 'react';
 import { Category } from '@/types';
 import { cn } from '@/lib/utils';
 import { useStore } from '@/store/useStore';
-import { getCategoryName, getTextDirection } from '@/lib/translations';
+import { getCategoryName, getTextDirection, getUIText } from '@/lib/translations';
 
 interface CategoryGridProps {
   onCategorySelect: (category: Category) => void;
@@ -27,9 +27,9 @@ export const CategoryGrid: React.FC<CategoryGridProps> = ({
 
   return (
     <div className={cn('p-4', className)}>
-      <h1 className="text-2xl font-bold text-foreground mb-6 text-center">
-        Choose a Category
-      </h1>
+        <h1 className="text-2xl font-bold text-foreground mb-6 text-center">
+          {getUIText('chooseCategory', preferences.language)}
+        </h1>
       
       <div className={cn(
         'grid gap-4 max-w-4xl mx-auto',

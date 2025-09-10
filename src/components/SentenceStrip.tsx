@@ -66,7 +66,7 @@ export const SentenceStrip: React.FC<SentenceStripProps> = ({ className }) => {
     <div className={cn('sentence-strip', className)}>
       <div className="flex items-center justify-between mb-3">
         <h2 className="text-lg font-semibold text-foreground">
-          My Sentence
+          {getUIText('mySentence', preferences.language)}
         </h2>
         
         <div className="flex gap-2">
@@ -105,7 +105,7 @@ export const SentenceStrip: React.FC<SentenceStripProps> = ({ className }) => {
       <div className="flex flex-wrap gap-2 min-h-[60px] p-2 bg-background/50 rounded-lg border-2 border-dashed border-border">
         {sentence.length === 0 ? (
           <div className="flex items-center justify-center w-full text-muted-foreground text-sm">
-            Tap tiles to build your sentence
+            {getUIText('tapTilesToBuild', preferences.language)}
           </div>
         ) : (
           sentence.map((item, index) => (

@@ -13,12 +13,15 @@ export const AppInitializer: React.FC<AppInitializerProps> = ({ children }) => {
   React.useEffect(() => {
     // Initialize with seed data if no data exists, but preserve preferences
     if (categories.length === 0 && tiles.length === 0) {
-      const currentPreferences = preferences; // Save current preferences
+      const savedPreferences = { ...preferences }; // Save current preferences
       resetToSeedData();
-      // Restore the saved preferences after reset
-      setTimeout(() => {
-        useStore.getState().updatePreferences(currentPreferences);
-      }, 0);
+      // Restore preferences immediately if they differ from default
+      if (savedPreferences.language !== 'en' || 
+          savedPreferences.caregiverMode !== false || 
+          savedPreferences.gridCols !== 3 ||
+          savedPreferences.highContrast !== false) {
+        updatePreferences(savedPreferences);
+      }
     }
     
     // Apply high contrast setting
@@ -27,7 +30,7 @@ export const AppInitializer: React.FC<AppInitializerProps> = ({ children }) => {
     }
     
     setIsInitialized(true);
-  }, [categories.length, tiles.length, resetToSeedData, preferences]);
+  }, [categories.length, tiles.length, resetToSeedData, preferences, updatePreferences]);
 
   if (!isInitialized) {
     return (
