@@ -3,6 +3,7 @@ import { SentenceStrip } from '@/components/SentenceStrip';
 import { CategoryGrid } from '@/components/CategoryGrid';
 import { TileGrid } from '@/components/TileGrid';
 import { AppInitializer } from '@/components/AppInitializer';
+import { Header } from '@/components/Header';
 import { Category, Tile } from '@/types';
 import { useStore } from '@/store/useStore';
 import { cn } from '@/lib/utils';
@@ -34,6 +35,9 @@ const Index = () => {
         'flex flex-col h-screen bg-background text-foreground',
         preferences.highContrast && 'high-contrast'
       )}>
+        {/* Header */}
+        <Header />
+
         {/* Sentence Strip - Always visible at top */}
         <div className="flex-shrink-0 p-4 border-b border-border">
           <SentenceStrip />
