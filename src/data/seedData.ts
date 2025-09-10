@@ -245,21 +245,39 @@ export const seedData = {
       categoryId: 'core-words',
       type: 'verb',
       order: 10,
-      variants: ['like', "don't like", 'love']
+      variants: ['like', "don't like", 'love'],
+      imageUri: '❤️',
+      translations: {
+        en: 'like',
+        ru: 'нравиться',
+        he: 'אוהב'
+      }
     },
     {
       id: 'tile-this',
       label: 'this',
       categoryId: 'core-words',
       type: 'core',
-      order: 11
+      order: 11,
+      imageUri: '👆',
+      translations: {
+        en: 'this',
+        ru: 'это',
+        he: 'זה'
+      }
     },
     {
       id: 'tile-that',
       label: 'that',
       categoryId: 'core-words',
       type: 'core',
-      order: 12
+      order: 12,
+      imageUri: '👉',
+      translations: {
+        en: 'that',
+        ru: 'то',
+        he: 'זה'
+      }
     },
 
     // People
@@ -666,6 +684,7 @@ export const seedData = {
       categoryId: 'time',
       type: 'core',
       order: 0,
+      imageUri: '⏰',
       translations: {
         en: 'now',
         ru: 'сейчас',
@@ -678,6 +697,7 @@ export const seedData = {
       categoryId: 'time',
       type: 'core',
       order: 1,
+      imageUri: '🕐',
       translations: {
         en: 'later',
         ru: 'позже',
