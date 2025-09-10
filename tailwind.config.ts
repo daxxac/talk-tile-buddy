@@ -82,6 +82,10 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
       },
+      fontFamily: {
+        'comfortaa': ['Comfortaa', 'cursive'],
+        'caveat': ['Caveat', 'cursive'],
+      },
       spacing: {
         'touch': 'var(--touch-target)',
         'xs': 'var(--spacing-xs)',
