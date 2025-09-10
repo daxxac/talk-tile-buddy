@@ -1,8 +1,9 @@
 import React from 'react';
-import { ArrowLeft, Settings, Search } from 'lucide-react';
+import { ArrowLeft, Settings, Search, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Tile } from '@/components/Tile';
+import { AddTileModal } from '@/components/AddTileModal';
 import { Category, Tile as TileType } from '@/types';
 import { cn, debounce } from '@/lib/utils';
 import { useStore } from '@/store/useStore';
@@ -25,6 +26,7 @@ export const TileGrid: React.FC<TileGridProps> = ({
   const { toast } = useToast();
   const [searchQuery, setSearchQuery] = React.useState('');
   const [filteredTiles, setFilteredTiles] = React.useState<TileType[]>([]);
+  const [showAddModal, setShowAddModal] = React.useState(false);
 
   const handleToggleCaregiverMode = () => {
     toggleCaregiverMode();
@@ -106,6 +108,18 @@ export const TileGrid: React.FC<TileGridProps> = ({
         </div>
         
         <div className="flex items-center gap-2">
+          {/* Add Tile Button - Only visible in caregiver mode */}
+          {preferences.caregiverMode && (
+            <Button
+              onClick={() => setShowAddModal(true)}
+              className="btn-touch bg-success text-success-foreground hover:bg-success/90"
+              size="sm"
+            >
+              <Plus className="w-4 h-4" />
+              <span className="ml-1 hidden sm:inline">Add Tile</span>
+            </Button>
+          )}
+          
           {/* Search */}
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -181,12 +195,16 @@ export const TileGrid: React.FC<TileGridProps> = ({
                 <p className="text-muted-foreground mb-4">
                   Tiles will appear here once they're added.
                 </p>
-                {preferences.caregiverMode && (
-                  <Button variant="outline">
+                {preferences.caregiverMode ? (
+                  <Button 
+                    variant="outline"
+                    onClick={() => setShowAddModal(true)}
+                    className="btn-touch"
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
                     Add First Tile
                   </Button>
-                )}
-                {!preferences.caregiverMode && (
+                ) : (
                   <p className="text-xs text-muted-foreground mt-2">
                     Enable caregiver mode to add tiles
                   </p>
@@ -196,6 +214,14 @@ export const TileGrid: React.FC<TileGridProps> = ({
           </div>
         )}
       </div>
+
+      {/* Add Tile Modal */}
+      <AddTileModal
+        isOpen={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        categoryId={category.id}
+        categoryName={category.name}
+      />
     </div>
   );
 };
