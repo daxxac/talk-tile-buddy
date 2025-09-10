@@ -4,22 +4,11 @@ import { Language, Tile, Category } from '@/types';
  * Get the translated text for a tile based on the current language
  */
 export function getTileText(tile: Tile, language: Language): string {
-  // Debug logging
-  console.log('getTileText called:', {
-    tileLabel: tile.label,
-    language,
-    hasTranslations: !!tile.translations,
-    translations: tile.translations
-  });
-  
   if (!tile.translations) {
-    console.log('No translations found, returning label:', tile.label);
     return tile.label; // Fallback to original label
   }
   
-  const translatedText = tile.translations[language] || tile.label;
-  console.log('Returning translated text:', translatedText);
-  return translatedText;
+  return tile.translations[language] || tile.label;
 }
 
 /**

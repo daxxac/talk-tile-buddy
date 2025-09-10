@@ -17,10 +17,7 @@ export const LanguageSelector: React.FC = () => {
   const { toast } = useToast();
 
   const handleLanguageChange = (language: Language) => {
-    console.log('Language change requested:', language);
-    console.log('Current preferences before update:', preferences);
     updatePreferences({ language });
-    console.log('Language updated in store');
     toast({
       title: getUIText('languageChanged', language),
       description: `${getUIText('interfaceChangedTo', language)} ${LANGUAGE_NAMES[language]}`,

@@ -239,10 +239,11 @@ export const useStore = create<Store>()(
       },
 
       resetToSeedData: () => {
+        const currentPreferences = get().preferences; // Preserve current preferences
         set({
           categories: seedData.categories,
           tiles: seedData.tiles,
-          preferences: defaultPreferences,
+          preferences: currentPreferences, // Keep user preferences
           sentence: [],
         });
       },
