@@ -6,6 +6,7 @@ import { Tile } from '@/components/Tile';
 import { Category, Tile as TileType } from '@/types';
 import { cn, debounce } from '@/lib/utils';
 import { useStore } from '@/store/useStore';
+import { useToast } from '@/hooks/use-toast';
 
 interface TileGridProps {
   category: Category;
@@ -21,8 +22,20 @@ export const TileGrid: React.FC<TileGridProps> = ({
   className 
 }) => {
   const { tiles, preferences, toggleCaregiverMode } = useStore();
+  const { toast } = useToast();
   const [searchQuery, setSearchQuery] = React.useState('');
   const [filteredTiles, setFilteredTiles] = React.useState<TileType[]>([]);
+
+  const handleToggleCaregiverMode = () => {
+    toggleCaregiverMode();
+    toast({
+      title: preferences.caregiverMode ? "Caregiver Mode Off" : "Caregiver Mode On",
+      description: preferences.caregiverMode 
+        ? "Editing features are now disabled" 
+        : "You can now add and edit tiles",
+      duration: 2000,
+    });
+  };
 
   // Get tiles for this category
   const categoryTiles = React.useMemo(() => {
@@ -106,13 +119,19 @@ export const TileGrid: React.FC<TileGridProps> = ({
           
           {/* Settings - Toggle Caregiver Mode */}
           <Button
-            variant="ghost"
+            variant={preferences.caregiverMode ? "default" : "ghost"}
             size="sm"
-            onClick={toggleCaregiverMode}
-            className="btn-touch"
-            aria-label="Toggle caregiver mode"
+            onClick={handleToggleCaregiverMode}
+            className={cn(
+              "btn-touch",
+              preferences.caregiverMode && "bg-primary text-primary-foreground"
+            )}
+            aria-label={`${preferences.caregiverMode ? 'Disable' : 'Enable'} caregiver mode`}
           >
             <Settings className="w-5 h-5" />
+            {preferences.caregiverMode && (
+              <span className="ml-2 text-xs font-medium">ON</span>
+            )}
           </Button>
         </div>
       </div>
@@ -166,6 +185,11 @@ export const TileGrid: React.FC<TileGridProps> = ({
                   <Button variant="outline">
                     Add First Tile
                   </Button>
+                )}
+                {!preferences.caregiverMode && (
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Enable caregiver mode to add tiles
+                  </p>
                 )}
               </>
             )}
